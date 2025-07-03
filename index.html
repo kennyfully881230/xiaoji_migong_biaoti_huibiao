@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" />
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=
+           maximum-scale=1.0, user-scalable=no" />
+  <style>
+    * {
+      box-sizing: border-box;
+      color: #EEEEEE40;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      touch-action: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    body {
+      align-items: center;
+      background-color: #000010;
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      justify-content: center;
+    }
+
+    canvas {
+      background-color: #EEEEEE;
+      image-rendering: optimizeSpeed;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: optimize-contrast;
+      image-rendering: pixelated;
+      touch-action: none;
+    }
+
+    .title {
+      background-color: #00000040;
+      left: 0.5rem;
+      position: fixed;
+      top: 0.5rem;
+    }
+
+    @media (orientation: landscape) {
+      canvas {
+        height: 100%;
+      }
+    }
+
+    @media (orientation: portrait) {
+      canvas {
+        width: 100%;
+      }
+    }
+  </style>
+  <link class="app-icon" rel="icon" href="#" />
+  <title>小鸡迷宫的游戏标题标志</title>
+</head>
+
+<body>
+  <h1 class="title">小鸡迷宫的游戏标题标志</h1>
+  <canvas width="160px" height="144px"></canvas>
+</body>
+
+</html>
+
+<script>
+  'use strict'
+  const canvas = document.querySelector('canvas')
+  const ctx = canvas.getContext('2d')
+
+  const pixelSteps = [0, 1, 2, 3, 4, 3, 2, 1, 0]; // Manual easing
+
+  const timers = {
+    timer60: 0,
+    timer60max: 59,
+  }
+
+  let spriteSheetImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAA8CAYAAACQPx/OAAAAAXNSR0IArs4c6QAABZBJREFUeJztnD9rI0cUwN8aFyn8FRJIoyWkk8BIhQ3XpUnhIuRMwJwKHaRwZWPwJzAYu4mLQFw4BMzlIOAvEDDEEIkDqV8VKa5OSJHrJ4U1y8zse2/fzM5a62R+cJy08/bN7L59f2ZmZYBEp8jML73+ULkCy8Usc4+5cpwM1tZEn2R8EqT6fPqNcR2bpmAxn1YE88FImYp7/aEqTvdtmTOoyvzwxWPba7sNG2DxMLH17VT13dwdoueP93j9VJ/f/PQb2nZ7sFvq6/WH6ufxj6jcS3hVGeP5xaUlc3J8VJHhxrRczLINYIyBneQaAwCgON1nO2P1OcYAACgeJkH61gVmDACA84tL7+vYFMig5GdvAFbGiEG+c/2oDzGQZrx3ZX2nvGadnBwfAayMEULFIPlgZH0PjdFtEMsAy8Usuz3YVQAAOnTdHuyWbdg5L29esfpOjo/U+cVlaQhtGFPfcjHLxDmkTcxBxDKw9pZQfdjN4XS5uQQz0MnxUWkQwzCqzihme8Ugbi5xk7ovOrmX+mqSfB3jvSu4uTuEm7tDGO9dlckwVJ8UzkPMHBIlZC0XsywfjGoT+3Ixy/IzUMXpvpU78rM3QU/qcjHL8h1QxcPEyh35zjWrzzXKU8B5CBayYGUc3/vS+jwktj6zJKVkfajTE/s6pP0mEolEIpH4L9DrD5VbIejvdWsxmJzWF3pM2q/kXEwPd2zda2gb+gM3rTeRDni5mGVuSYeVeE3KPqyP505pEHfGqw0kuamYHOZ1Eqh+MUL7aNpvm0TxEGp9pu2L+195CIX0BsR8en2g8gOWI9edLxLPAHR70QxBXVl7amtNSdqvuxXb6hpfrz9UJtqd9WdXoQslY5amlD7pTaEIGV9Iv2ZZ3PS+cNexAR5Qe+/FfEpavphPK3ssbREyvq7162UQk3wwqmz3dol1ja9pv+gWbqwn2tTTRKfeQDP16IvuQtlrbvBJx0cZLdhDnprYs3xfdPjhHizzJmvj1IVyN6SjHqIVhz7V5hNj6soHo0480aFQ98M0lPTesWEtdpUFSKXVpNrB+qZ0xayyfPTFqrJam4eAU6/HWieSzGdizkN89EWbhyQSiUQikXj+WCuxULM6S8m5u22cPlenC9eHRE465pjjo8YYDPdyAFZLS8/lLqZuLJLzQsfiM+bQfkOxdgybKjNpsiMXezeP2jFsu98QrD31WEqb7HW3sU9O6XRf6ujC5Iz9wY4bF31DRwh1fbgxHxsjlW+4t2qajLkrb6wkEolEIpHoEOzMNXQG/hQzYaqq4SpD37GsDd/ZrPRYXR8xxtJkzF2EfcmhyY2l9K3jZnR1Vo7BGqTpmx7Ylua6QkQXZ+UY1lpW7PUj7Jh0gRHb46/7DQr3mxY3ZMX2/sQTQOUdbKnINTJ1DNNlym0CACj12K7fDtQsF7NMt2WZ7eHY+hB3QZQs9VRisvfbW5bsi3cf0L4H335S0Tn//r0lm319XZFRbyf2H2F7fJesfGOS+rsv0uqSwtRZySHFfJoV8ykbX2Pta3B63DbXGNQxzBhSMCOV/PId2UQt70vDYsVDYOUd2hD6SdDeUafwKdFegRnDxPUICu0VrDEAAD79m22mfovpO0/bBCNUmSGr1x8q7NVP3+Vq6W8X28D0FspAtYbQfPYx20xtD9Thym3AKkyZ/7ufQ9ClZexZ8f32lqrzjlDMHOLy+58fASCJ2ef6JFWmlUNMDzE/Y6FLQttLFFRS10jClno7ySRh69d/vio/m/MYbk4jnceZx6wdQ8wr8sFIZUaJRSVm7q0QTs6XF+8+ZNpD7re3lE+lhSENWV/e/wG3q8/SawmZ61h76vlgpNx/ksGGwl0Q18Z5BuYVvgke4/3nf4nGZoLl366uEDwLqEkdVea63yWlryv3L+spbjWIySECAAAAAElFTkSuQmCC'
+
+  const setImage = () => {
+    const image = new Image()
+    image.src = spriteSheetImage
+    spriteSheetImage = image
+  }; setImage()
+
+  class DigiPointer {
+    constructor() {
+      this.pos = {
+        isTouching: false,
+        dx: null,
+        dy: null
+      }
+    }
+
+    render() {
+      if (this.pos.dx && this.pos.dy && this.pos.isTouching) {
+        ctx.fillStyle = 'rgba(0,0,0, 0.5)'
+        // ctx.fillRect(this.pos.dx - 2, this.pos.dy - 2, 4, 4)
+        ctx.fillRect(this.pos.dx, this.pos.dy, 1, 1)
+      } else if (this.pos.dx && this.pos.dy) {
+        ctx.fillStyle = 'rgba(0,0,0, 0.5)'
+        ctx.fillRect(this.pos.dx, this.pos.dy, 1, 1)
+      }
+    }
+  }
+
+  class ColorModule {
+    constructor(options) {
+      this.id = options?.id ?? 0
+      this.r = options?.r ?? 0
+      this.g = options?.g ?? 0
+      this.b = options?.b ?? 0
+    }
+
+    render() {
+      ctx.fillStyle = `rgb(${this.r},${this.g},${this.b})`
+      ctx.drawImage(spriteSheetImage, 0, 50, 10, 10, this.id % 2 * 80 + 0, 70, 10, 10) // color
+      ctx.drawImage(spriteSheetImage, this.id * 10 + 10, 50, 10, 10, this.id % 2 * 80 + 10, 70, 10, 10) // color id will show +1 of this.id
+      ctx.drawImage(spriteSheetImage, 30, 50, 10, 10, this.id % 2 * 80 + 20, 70, 10, 10) // color outline
+      ctx.fillRect(this.id % 2 * 80 + 22, 72, 6, 6) // current color
+    }
+  }
+
+  class ColorSlider {
+    constructor(options) {
+      this.id = options?.id ?? 0 // id should be between 0 and 5
+      this.id < 3 ? this.colorModuleSet = 0 : this.colorModuleSet = 1
+      this.dx = options?.dx ?? 0
+      this.dy = options?.dy ?? 0
+      this.dw = options?.dw ?? 50 // this only applies to the slider bar
+      this.dh = options?.dh ?? 10 // this only applies to the slider bar
+    }
+
+    render(options) {
+      const moduleSet = options.colorModules[this.colorModuleSet]
+      const sliderType = moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b']
+
+      ctx.drawImage(spriteSheetImage, this.id % 3 * 10 + 40 /* determines value of r, g or b */, 50, 10, 10, Math.floor(this.id / 3) % 2 * 80 + 0, this.id % 3 * 20 + 90, 10, 10)
+
+      ctx.fillStyle = `rgb(${moduleSet.r},${moduleSet.g},${moduleSet.b})`   //`rgb(38,50,56)` // gray
+      ctx.fillRect(Math.floor(this.id / 3) % 2 * 80 + 10, this.id % 3 * 20 + 94, 50, 2)  // slider bars
+      ctx.drawImage(spriteSheetImage, 70, 50, 3, 10, Math.floor(this.id / 3) % 2 * 80 + 10 + Math.floor(sliderType / 255 * 49) - 1, this.id % 3 * 20 + 90, 3, 10) // sliders
+    }
+
+    update(options) {
+      const moduleSet = options.colorModules[this.colorModuleSet]
+      const sliderType = moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b']
+      const digiPointerPOS = digiPointer.pos
+      const hitBoxDX = Math.floor(this.id / 3) % 2 * 80 + 10
+      const hitBoxDY = this.id % 3 * 20 + 90
+      const hitBoxDW = 50
+      const hitBoxDH = 10
+
+      if (
+        digiPointer.pos.dx >= hitBoxDX &&
+        digiPointer.pos.dx < hitBoxDX + hitBoxDW &&
+        digiPointer.pos.dy >= hitBoxDY &&
+        digiPointer.pos.dy < hitBoxDY + hitBoxDH &&
+        digiPointer.pos.isTouching
+      ) {
+        // posX - hitBoxX = normalize
+        ctx.fillStyle = 'rgba(0,0,0,0.25)'
+        ctx.fillRect(Math.floor(this.id / 3) % 2 * 80 + 10, this.id % 3 * 20 + 90, 50, 10)  // slider bars
+        moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = (digiPointerPOS.dx - hitBoxDX) / 49 * 255
+      }
+    }
+  }
+
+  // the color test and how to use message
+  class HowToUseMsg {
+    render() {
+      ctx.drawImage(spriteSheetImage, 0, 0, 100, 20, 60, 0, 100, 20)
+      ctx.drawImage(spriteSheetImage, 0, 20, 100, 30, 60, 30, 100, 30)
+    }
+  }
+
+  class TitleLogo {
+    render(options) {
+      const moduleSets = options.colorModules
+      const moduleSet0 = moduleSets[0]
+      const moduleSet1 = moduleSets[1]
+      const sineResult = sine(0, 4, timers.timer60 / timers.timer60max)
+      const shadowPath = new Path2D(`m 13,0 v 22 h -4 v 5 h 10 v -5 -22 z m 33,0 v 2 h -15 v 6 h 6 v 3 h -1 v -2 h -5 v 5 h 2 v 2 h 2 v 2 h -2 v 4 h -2 v 5 h 5 v -2 h 2 v -2 h 10 v 2 2 h 7 v -2 h 2 v -2 -5 -2 -3 h -2 v -1 -4 -6 h -4 v -2 z m -41,7 v 6 h -2 v 3 5 h 5 v -5 h 2 v -9 z m 17,0 v 7 h 2 v 7 h 5 v -7 -3 h -2 v -4 z m 25,5 h 1 v 1 h -1 z m -7,4 h 2 v 2 h -2 z m -37,17 v 2 3 h 2 v 2 h 5 v -2 -3 h -2 v -2 z m 15,0 v 2 2 h -2 v -2 h -5 v 3 2 h 2 v 1 h -10 v 5 h 4 v 1 1 3 1 h -2 v 1 1 h -2 v 3 2 h 5 v -2 h 3 v 2 h 18 v -2 -3 h -6 v -1 -2 h 1 v 2 h 5 v -2 -3 h -2 v -1 h 2 v -1 -5 h -2 v -1 h 2 v -2 -1 -2 h -5 v 2 h -1 v -2 -2 z m 22,0 v 2 h -9 v 5 7 h 5 v -7 h 1 v 3 2 3 h -2 v 5 1 5 h 18 v -5 -1 -5 h -2 v -3 -2 -3 h 1 v 7 h 5 v -7 -5 h -8 v -2 z m 1,10 h 6 v 2 h -6 z m -29,4 h 1 v 1 h -1 z m 4,4 h 2 v 2 1 h -4 v -1 h 2 z m 24,2 h 8 v 1 h -8 z`)
+      const outlinePath = new Path2D(`m ${11 + sineResult},0 v 22 h -4 v 5 h 10 v -5 -22 z m 33,0 v 2 h -15 v 6 h 6 v 3 h -1 v -2 h -5 v 5 h 2 v 2 h 2 v 2 h -2 v 4 h -2 v 5 h 5 v -2 h 2 v -2 h 10 v 2 2 h 7 v -2 h 2 v -2 -5 -2 -3 h -2 v -1 -4 -6 h -4 v -2 z m -41,7 v 6 h -2 v 3 5 h 5 v -5 h 2 v -9 z m 17,0 v 7 h 2 v 7 h 5 v -7 -3 h -2 v -4 z m 25,5 h 1 v 1 h -1 z m -7,4 h 2 v 2 h -2 z m -37,17 v 2 3 h 2 v 2 h 5 v -2 -3 h -2 v -2 z m 15,0 v 2 2 h -2 v -2 h -5 v 3 2 h 2 v 1 h -10 v 5 h 4 v 1 1 3 1 h -2 v 1 1 h -2 v 3 2 h 5 v -2 h 3 v 2 h 18 v -2 -3 h -6 v -1 -2 h 1 v 2 h 5 v -2 -3 h -2 v -1 h 2 v -1 -5 h -2 v -1 h 2 v -2 -1 -2 h -5 v 2 h -1 v -2 -2 z m 22,0 v 2 h -9 v 5 7 h 5 v -7 h 1 v 3 2 3 h -2 v 5 1 5 h 18 v -5 -1 -5 h -2 v -3 -2 -3 h 1 v 7 h 5 v -7 -5 h -8 v -2 z m 1,10 h 6 v 2 h -6 z m -29,4 h 1 v 1 h -1 z m 4,4 h 2 v 2 1 h -4 v -1 h 2 z m 24,2 h 8 v 1 h -8 z`)
+      const bodyPath = new Path2D(`m ${12 + sineResult},1 v 22 h -4 v 3 h 4 4 v -25 z m 33,0 v 2 h -4 v 4 10 h 3 7 v 6 h -4 v 3 h 5 v -2 h 2 v -7 -3 h -10 v -7 h 5 v 3 h -1 v -2 h -3 v 3 h 2 v 2 h 2 3 v -6 -4 h -4 v -2 z m -15,2 v 4 h 6 v 7 h -1 v -2 h -2 v -2 h -3 v 3 h 2 v 2 h 2 v 4 h -2 v 4 h -2 v 3 h 3 v -2 h 2 v -4 h 1 v 2 h 3 v -3 h -2 v -4 h 2 v -8 -4 z m -26,5 v 6 h -2 v 6 h 3 v -5 h 2 v -7 z m 17,0 v 5 h 2 v 7 h 3 v -8 h -2 v -4 z m 20,11 v 3 h 9 v -3 z m -39,15 v 3 h 2 v 2 h 3 v -3 h -2 v -2 z m 15,0 v 8 h -7 v 4 h 5 v 1 h -3 v 2 h -2 v 3 h 3 v -2 h 3 v -2 h 1 v 6 h 3 v -8 h 6 v -4 h -6 v -8 z m 22,0 v 2 h -9 v 3 7 h 3 v -7 h 18 v 7 h 3 v -7 -3 h -8 v -2 z m -29,2 v 3 h 2 v 2 h 4 v -3 h -3 v -2 z m 13,0 v 2 h -2 v 3 h 3 v -2 h 2 v -3 z m 13,4 v 2 4 2 h 12 v -2 -4 -2 z m -34,2 v 3 h 4 v 8 h -2 v 2 h -2 v 3 h 3 v -2 h 2 v -2 h 1 v 2 h 2 v 2 h 16 v -3 h -15 v -2 h -2 v -8 -3 z m 36,0 h 8 v 4 h -8 z m -17,5 v 3 h 2 v 2 h 3 v -3 h -2 v -2 z m 13,2 v 3 3 3 h 16 v -3 -3 -3 z m 3,3 h 10 v 3 h -10 z`)
+      const highlightPath = new Path2D(`m ${12 + sineResult},1 v 1 21 h -4 v 1 2 h 1 v -2 h 3 1 v -22 h 3 v -1 z m 33,0 v 1 1 h -4 v 1 13 h 1 v -13 h 4 v -1 -1 h 2 v -1 z m -15,2 v 1 3 h 1 v -3 h 8 v -1 z m 18,0 v 1 h 4 v -1 z m -12,4 v 7 h -1 v 1 h 1 1 v -8 z m -1,8 h -1 v 4 h -2 v 1 3 h -2 v 1 2 h 1 v -2 h 1 1 v -4 h 1 1 z m 14,-8 v 3 h -1 v 1 h 1 1 v -4 z m -1,4 h -1 v 2 h 1 z m -44,-3 v 1 5 h -2 v 1 5 h 1 v -5 h 1 1 v -6 h 2 v -1 z m 17,0 v 1 4 h 1 v -4 h 2 v -1 z m 24,0 v 1 2 h 1 v -2 h 2 v -1 z m -15,2 v 1 2 h 1 v -2 h 2 v -1 z m -6,2 v 1 h 2 v -1 z m 0,1 h -1 v 7 h 1 z m 9,-1 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 11,1 v 1 h 10 v -1 z m 7,3 v 6 h -4 v 1 2 h 1 v -2 h 3 1 v -7 z m -14,2 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 4,-1 v 1 2 h 1 v -2 h 8 v -1 z m -39,15 v 1 2 h 1 v -2 h 2 v -1 z m 15,0 v 1 7 h -7 v 1 3 h 1 v -3 h 6 1 v -8 h 2 v -1 z m 22,0 v 1 1 h -9 v 1 9 h 1 v -9 h 8 1 v -2 h 6 v -1 z m -34,2 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 5,-1 v 1 2 h 1 v -2 h 2 v -1 z m 13,0 v 1 1 h -2 v 1 2 h 1 v -2 h 1 1 v -2 h 2 v -1 z m 23,0 v 1 h 8 v -1 z m -33,2 v 1 h 3 v -1 z m 0,1 h -1 v 2 h 1 z m 38,0 v 7 h 1 v -7 z m -15,1 v 1 7 h 1 v -7 h 11 v -1 z m -34,2 v 1 2 h 1 v -2 h 6 v -1 z m 18,0 v 1 h 6 v -1 z m 26,0 v 4 h -8 v 1 h 8 1 v -5 z m -40,3 v 8 h -2 v 1 1 h -2 v 1 2 h 1 v -2 h 1 1 v -2 h 1 1 v -9 z m 9,1 v 1 h 1 v -1 z m 0,1 h -3 v 1 1 h -2 v 1 2 h 1 v -2 h 1 1 v -2 h 2 z m 6,0 v 1 2 h 1 v -2 h 2 v -1 z m -4,1 v 6 h 1 v -6 z m 7,1 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 10,-1 v 1 8 h 1 v -8 h 15 v -1 z m 13,3 v 3 h -10 v 1 h 11 v -1 -3 z m -38,1 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 2,1 v 1 h 15 v -1 z m 0,1 h -1 v 2 h 1 z`)
+      ctx.fillStyle = `rgb(${moduleSet1.r},${moduleSet1.g},${moduleSet1.b})`
+      ctx.fill(shadowPath)
+      ctx.fill(outlinePath)
+      ctx.fillStyle = `rgb(${moduleSet0.r},${moduleSet0.g},${moduleSet0.b})`
+      ctx.fill(bodyPath)
+      ctx.fillStyle = 'rgb(255,255,255)'
+      ctx.fill(highlightPath)
+    }
+  }
+
+  class Scene {
+    constructor() {
+      this.titleLogo = new TitleLogo()
+      this.howToUseMsg = new HowToUseMsg()
+
+      this.colorModules = [
+        new ColorModule({id: 0, r: 255, g: 171, b: 145}),
+        new ColorModule({id: 1, r: 191, g: 54, b: 12}),
+      ]
+
+      this.colorSliders = []
+
+      for (let i = 0; i < 6; i++) this.colorSliders.push(new ColorSlider({id: i}))
+
+      this.render()
+    }
+
+    render() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      this.titleLogo.render({colorModules: this.colorModules})
+      this.howToUseMsg.render()
+      this.colorModules.forEach(module => module.render())
+      this.colorSliders.forEach(slider => slider.render({colorModules: this.colorModules}))
+      digiPointer.render()
+      this.update()
+    }
+
+
+    update() {
+      this.colorSliders.forEach(slider => slider.update({colorModules: this.colorModules}))
+
+      if (timers.timer60 >= timers.timer60max) {
+        timers.timer60 = 0
+      } else {
+        timers.timer60++
+      }
+
+      requestAnimationFrame(() => this.render())
+    }
+  }
+
+  const sine = (a, b, t) => {
+    t = Math.min(Math.max(t, 0), 1);  // Clamp between 0 and 1
+    const index = Math.floor(t * (pixelSteps.length - 1));  // Ensure index is in bounds
+    return pixelSteps[index];
+  }
+
+  const digiPointer = new DigiPointer()
+
+  const scene = new Scene()
+
+  canvas.addEventListener('pointerdown', (e) => {
+    e.preventDefault()
+    digiPointer.pos.isTouching = true
+    digiPointer.pos.dx = Math.floor(e.offsetX / canvas.clientWidth * canvas.width)
+    digiPointer.pos.dy = Math.floor(e.offsetY / canvas.clientHeight * canvas.height)
+  })
+
+  canvas.addEventListener('pointermove', (e) => {
+    e.preventDefault()
+    digiPointer.pos.dx = Math.floor(e.offsetX / canvas.clientWidth * canvas.width)
+    digiPointer.pos.dy = Math.floor(e.offsetY / canvas.clientHeight * canvas.height)
+  })
+
+  canvas.addEventListener('pointerup', (e) => {
+    e.preventDefault()
+    digiPointer.pos.isTouching = false
+    digiPointer.pos.dx = null
+    digiPointer.pos.dy = null
+  })
+
+  canvas.addEventListener('pointercancel', (e) => {
+    e.preventDefault()
+    digiPointer.pos.isTouching = false
+    digiPointer.pos.dx = null
+    digiPointer.pos.dy = null
+  })
+
+  canvas.addEventListener('pointerout', (e) => {
+    e.preventDefault()
+    digiPointer.pos.isTouching = false
+    digiPointer.pos.dx = null
+    digiPointer.pos.dy = null
+  })
+</script>
