@@ -67,7 +67,7 @@
 
 <body>
   <h1 class="title">小鸡迷宫的游戏标题标志</h1>
-  <canvas width="160px" height="144px"></canvas>
+  <canvas width="320px" height="288px"></canvas>
 </body>
 
 </html>
@@ -77,14 +77,14 @@
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d')
 
-  const pixelSteps = [0, 1, 2, 3, 4, 3, 2, 1, 0]; // Manual easing
+  const pixelSteps = [0, 2, 4, 6, 8, 6, 4, 2, 0]; // Manual easing
 
   const timers = {
     timer60: 0,
     timer60max: 59,
   }
 
-  let spriteSheetImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAA8CAYAAACQPx/OAAAAAXNSR0IArs4c6QAABZBJREFUeJztnD9rI0cUwN8aFyn8FRJIoyWkk8BIhQ3XpUnhIuRMwJwKHaRwZWPwJzAYu4mLQFw4BMzlIOAvEDDEEIkDqV8VKa5OSJHrJ4U1y8zse2/fzM5a62R+cJy08/bN7L59f2ZmZYBEp8jML73+ULkCy8Usc4+5cpwM1tZEn2R8EqT6fPqNcR2bpmAxn1YE88FImYp7/aEqTvdtmTOoyvzwxWPba7sNG2DxMLH17VT13dwdoueP93j9VJ/f/PQb2nZ7sFvq6/WH6ufxj6jcS3hVGeP5xaUlc3J8VJHhxrRczLINYIyBneQaAwCgON1nO2P1OcYAACgeJkH61gVmDACA84tL7+vYFMig5GdvAFbGiEG+c/2oDzGQZrx3ZX2nvGadnBwfAayMEULFIPlgZH0PjdFtEMsAy8Usuz3YVQAAOnTdHuyWbdg5L29esfpOjo/U+cVlaQhtGFPfcjHLxDmkTcxBxDKw9pZQfdjN4XS5uQQz0MnxUWkQwzCqzihme8Ugbi5xk7ovOrmX+mqSfB3jvSu4uTuEm7tDGO9dlckwVJ8UzkPMHBIlZC0XsywfjGoT+3Ixy/IzUMXpvpU78rM3QU/qcjHL8h1QxcPEyh35zjWrzzXKU8B5CBayYGUc3/vS+jwktj6zJKVkfajTE/s6pP0mEolEIpH4L9DrD5VbIejvdWsxmJzWF3pM2q/kXEwPd2zda2gb+gM3rTeRDni5mGVuSYeVeE3KPqyP505pEHfGqw0kuamYHOZ1Eqh+MUL7aNpvm0TxEGp9pu2L+195CIX0BsR8en2g8gOWI9edLxLPAHR70QxBXVl7amtNSdqvuxXb6hpfrz9UJtqd9WdXoQslY5amlD7pTaEIGV9Iv2ZZ3PS+cNexAR5Qe+/FfEpavphPK3ssbREyvq7162UQk3wwqmz3dol1ja9pv+gWbqwn2tTTRKfeQDP16IvuQtlrbvBJx0cZLdhDnprYs3xfdPjhHizzJmvj1IVyN6SjHqIVhz7V5hNj6soHo0480aFQ98M0lPTesWEtdpUFSKXVpNrB+qZ0xayyfPTFqrJam4eAU6/HWieSzGdizkN89EWbhyQSiUQikXj+WCuxULM6S8m5u22cPlenC9eHRE465pjjo8YYDPdyAFZLS8/lLqZuLJLzQsfiM+bQfkOxdgybKjNpsiMXezeP2jFsu98QrD31WEqb7HW3sU9O6XRf6ujC5Iz9wY4bF31DRwh1fbgxHxsjlW+4t2qajLkrb6wkEolEIpHoEOzMNXQG/hQzYaqq4SpD37GsDd/ZrPRYXR8xxtJkzF2EfcmhyY2l9K3jZnR1Vo7BGqTpmx7Ylua6QkQXZ+UY1lpW7PUj7Jh0gRHb46/7DQr3mxY3ZMX2/sQTQOUdbKnINTJ1DNNlym0CACj12K7fDtQsF7NMt2WZ7eHY+hB3QZQs9VRisvfbW5bsi3cf0L4H335S0Tn//r0lm319XZFRbyf2H2F7fJesfGOS+rsv0uqSwtRZySHFfJoV8ykbX2Pta3B63DbXGNQxzBhSMCOV/PId2UQt70vDYsVDYOUd2hD6SdDeUafwKdFegRnDxPUICu0VrDEAAD79m22mfovpO0/bBCNUmSGr1x8q7NVP3+Vq6W8X28D0FspAtYbQfPYx20xtD9Thym3AKkyZ/7ufQ9ClZexZ8f32lqrzjlDMHOLy+58fASCJ2ef6JFWmlUNMDzE/Y6FLQttLFFRS10jClno7ySRh69d/vio/m/MYbk4jnceZx6wdQ8wr8sFIZUaJRSVm7q0QTs6XF+8+ZNpD7re3lE+lhSENWV/e/wG3q8/SawmZ61h76vlgpNx/ksGGwl0Q18Z5BuYVvgke4/3nf4nGZoLl366uEDwLqEkdVea63yWlryv3L+spbjWIySECAAAAAElFTkSuQmCC'
+  let spriteSheetImage = 'data:image/png;base64,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'
 
   const setImage = () => {
     const image = new Image()
@@ -123,10 +123,10 @@
 
     render() {
       ctx.fillStyle = `rgb(${this.r},${this.g},${this.b})`
-      ctx.drawImage(spriteSheetImage, 0, 50, 10, 10, this.id % 2 * 80 + 0, 70, 10, 10) // color
-      ctx.drawImage(spriteSheetImage, this.id * 10 + 10, 50, 10, 10, this.id % 2 * 80 + 10, 70, 10, 10) // color id will show +1 of this.id
-      ctx.drawImage(spriteSheetImage, 30, 50, 10, 10, this.id % 2 * 80 + 20, 70, 10, 10) // color outline
-      ctx.fillRect(this.id % 2 * 80 + 22, 72, 6, 6) // current color
+      ctx.drawImage(spriteSheetImage, 0, 100, 20, 20, this.id % 2 * 160 + 0, 140, 20, 20) // color
+      ctx.drawImage(spriteSheetImage, this.id * 20 + 20, 100, 20, 20, this.id % 2 * 160 + 20, 140, 20, 20) // color id will show +1 of this.id
+      ctx.drawImage(spriteSheetImage, 60, 100, 20, 20, this.id % 2 * 160 + 40, 140, 20, 20) // color outline
+      ctx.fillRect(this.id % 2 * 160 + 44, 144, 12, 12) // current color
     }
   }
 
@@ -143,22 +143,20 @@
     render(options) {
       const moduleSet = options.colorModules[this.colorModuleSet]
       const sliderType = moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b']
-
-      ctx.drawImage(spriteSheetImage, this.id % 3 * 10 + 40 /* determines value of r, g or b */, 50, 10, 10, Math.floor(this.id / 3) % 2 * 80 + 0, this.id % 3 * 20 + 90, 10, 10)
-
-      ctx.fillStyle = `rgb(${moduleSet.r},${moduleSet.g},${moduleSet.b})`   //`rgb(38,50,56)` // gray
-      ctx.fillRect(Math.floor(this.id / 3) % 2 * 80 + 10, this.id % 3 * 20 + 94, 50, 2)  // slider bars
-      ctx.drawImage(spriteSheetImage, 70, 50, 3, 10, Math.floor(this.id / 3) % 2 * 80 + 10 + Math.floor(sliderType / 255 * 49) - 1, this.id % 3 * 20 + 90, 3, 10) // sliders
+      ctx.drawImage(spriteSheetImage, this.id % 3 * 20 + 80, 100, 20, 20, Math.floor(this.id / 3) % 2 * 160, this.id % 3 * 40 + 180, 20, 20)
+      ctx.fillStyle = `rgb(${moduleSet.r},${moduleSet.g},${moduleSet.b})`
+      ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 188, 100, 4)  // slider bars
+      ctx.drawImage(spriteSheetImage, 140, 100, 6, 20, Math.floor(this.id / 3) % 2 * 160 + 20 + Math.floor(sliderType / 255 * 49) - 2, this.id % 3 * 40 + 180, 6, 20) // sliders
     }
 
     update(options) {
       const moduleSet = options.colorModules[this.colorModuleSet]
       const sliderType = moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b']
       const digiPointerPOS = digiPointer.pos
-      const hitBoxDX = Math.floor(this.id / 3) % 2 * 80 + 10
-      const hitBoxDY = this.id % 3 * 20 + 90
-      const hitBoxDW = 50
-      const hitBoxDH = 10
+      const hitBoxDX = Math.floor(this.id / 3) % 2 * 160 + 20
+      const hitBoxDY = this.id % 3 * 40 + 180
+      const hitBoxDW = 100
+      const hitBoxDH = 20
 
       if (
         digiPointer.pos.dx >= hitBoxDX &&
@@ -169,17 +167,18 @@
       ) {
         // posX - hitBoxX = normalize
         ctx.fillStyle = 'rgba(0,0,0,0.25)'
-        ctx.fillRect(Math.floor(this.id / 3) % 2 * 80 + 10, this.id % 3 * 20 + 90, 50, 10)  // slider bars
+        ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 180, 100, 20)  // slider bars
         moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = (digiPointerPOS.dx - hitBoxDX) / 49 * 255
       }
     }
   }
 
   // the color test and how to use message
+  // Todo: add Chinese interface
   class HowToUseMsg {
     render() {
-      ctx.drawImage(spriteSheetImage, 0, 0, 100, 20, 60, 0, 100, 20)
-      ctx.drawImage(spriteSheetImage, 0, 20, 100, 30, 60, 30, 100, 30)
+      ctx.drawImage(spriteSheetImage, 0, 0, 200, 40, 120, 0, 200, 40)
+      ctx.drawImage(spriteSheetImage, 0, 40, 200, 60, 120, 60, 200, 60)
     }
   }
 
@@ -189,10 +188,10 @@
       const moduleSet0 = moduleSets[0]
       const moduleSet1 = moduleSets[1]
       const sineResult = sine(0, 4, timers.timer60 / timers.timer60max)
-      const shadowPath = new Path2D(`m 13,0 v 22 h -4 v 5 h 10 v -5 -22 z m 33,0 v 2 h -15 v 6 h 6 v 3 h -1 v -2 h -5 v 5 h 2 v 2 h 2 v 2 h -2 v 4 h -2 v 5 h 5 v -2 h 2 v -2 h 10 v 2 2 h 7 v -2 h 2 v -2 -5 -2 -3 h -2 v -1 -4 -6 h -4 v -2 z m -41,7 v 6 h -2 v 3 5 h 5 v -5 h 2 v -9 z m 17,0 v 7 h 2 v 7 h 5 v -7 -3 h -2 v -4 z m 25,5 h 1 v 1 h -1 z m -7,4 h 2 v 2 h -2 z m -37,17 v 2 3 h 2 v 2 h 5 v -2 -3 h -2 v -2 z m 15,0 v 2 2 h -2 v -2 h -5 v 3 2 h 2 v 1 h -10 v 5 h 4 v 1 1 3 1 h -2 v 1 1 h -2 v 3 2 h 5 v -2 h 3 v 2 h 18 v -2 -3 h -6 v -1 -2 h 1 v 2 h 5 v -2 -3 h -2 v -1 h 2 v -1 -5 h -2 v -1 h 2 v -2 -1 -2 h -5 v 2 h -1 v -2 -2 z m 22,0 v 2 h -9 v 5 7 h 5 v -7 h 1 v 3 2 3 h -2 v 5 1 5 h 18 v -5 -1 -5 h -2 v -3 -2 -3 h 1 v 7 h 5 v -7 -5 h -8 v -2 z m 1,10 h 6 v 2 h -6 z m -29,4 h 1 v 1 h -1 z m 4,4 h 2 v 2 1 h -4 v -1 h 2 z m 24,2 h 8 v 1 h -8 z`)
-      const outlinePath = new Path2D(`m ${11 + sineResult},0 v 22 h -4 v 5 h 10 v -5 -22 z m 33,0 v 2 h -15 v 6 h 6 v 3 h -1 v -2 h -5 v 5 h 2 v 2 h 2 v 2 h -2 v 4 h -2 v 5 h 5 v -2 h 2 v -2 h 10 v 2 2 h 7 v -2 h 2 v -2 -5 -2 -3 h -2 v -1 -4 -6 h -4 v -2 z m -41,7 v 6 h -2 v 3 5 h 5 v -5 h 2 v -9 z m 17,0 v 7 h 2 v 7 h 5 v -7 -3 h -2 v -4 z m 25,5 h 1 v 1 h -1 z m -7,4 h 2 v 2 h -2 z m -37,17 v 2 3 h 2 v 2 h 5 v -2 -3 h -2 v -2 z m 15,0 v 2 2 h -2 v -2 h -5 v 3 2 h 2 v 1 h -10 v 5 h 4 v 1 1 3 1 h -2 v 1 1 h -2 v 3 2 h 5 v -2 h 3 v 2 h 18 v -2 -3 h -6 v -1 -2 h 1 v 2 h 5 v -2 -3 h -2 v -1 h 2 v -1 -5 h -2 v -1 h 2 v -2 -1 -2 h -5 v 2 h -1 v -2 -2 z m 22,0 v 2 h -9 v 5 7 h 5 v -7 h 1 v 3 2 3 h -2 v 5 1 5 h 18 v -5 -1 -5 h -2 v -3 -2 -3 h 1 v 7 h 5 v -7 -5 h -8 v -2 z m 1,10 h 6 v 2 h -6 z m -29,4 h 1 v 1 h -1 z m 4,4 h 2 v 2 1 h -4 v -1 h 2 z m 24,2 h 8 v 1 h -8 z`)
-      const bodyPath = new Path2D(`m ${12 + sineResult},1 v 22 h -4 v 3 h 4 4 v -25 z m 33,0 v 2 h -4 v 4 10 h 3 7 v 6 h -4 v 3 h 5 v -2 h 2 v -7 -3 h -10 v -7 h 5 v 3 h -1 v -2 h -3 v 3 h 2 v 2 h 2 3 v -6 -4 h -4 v -2 z m -15,2 v 4 h 6 v 7 h -1 v -2 h -2 v -2 h -3 v 3 h 2 v 2 h 2 v 4 h -2 v 4 h -2 v 3 h 3 v -2 h 2 v -4 h 1 v 2 h 3 v -3 h -2 v -4 h 2 v -8 -4 z m -26,5 v 6 h -2 v 6 h 3 v -5 h 2 v -7 z m 17,0 v 5 h 2 v 7 h 3 v -8 h -2 v -4 z m 20,11 v 3 h 9 v -3 z m -39,15 v 3 h 2 v 2 h 3 v -3 h -2 v -2 z m 15,0 v 8 h -7 v 4 h 5 v 1 h -3 v 2 h -2 v 3 h 3 v -2 h 3 v -2 h 1 v 6 h 3 v -8 h 6 v -4 h -6 v -8 z m 22,0 v 2 h -9 v 3 7 h 3 v -7 h 18 v 7 h 3 v -7 -3 h -8 v -2 z m -29,2 v 3 h 2 v 2 h 4 v -3 h -3 v -2 z m 13,0 v 2 h -2 v 3 h 3 v -2 h 2 v -3 z m 13,4 v 2 4 2 h 12 v -2 -4 -2 z m -34,2 v 3 h 4 v 8 h -2 v 2 h -2 v 3 h 3 v -2 h 2 v -2 h 1 v 2 h 2 v 2 h 16 v -3 h -15 v -2 h -2 v -8 -3 z m 36,0 h 8 v 4 h -8 z m -17,5 v 3 h 2 v 2 h 3 v -3 h -2 v -2 z m 13,2 v 3 3 3 h 16 v -3 -3 -3 z m 3,3 h 10 v 3 h -10 z`)
-      const highlightPath = new Path2D(`m ${12 + sineResult},1 v 1 21 h -4 v 1 2 h 1 v -2 h 3 1 v -22 h 3 v -1 z m 33,0 v 1 1 h -4 v 1 13 h 1 v -13 h 4 v -1 -1 h 2 v -1 z m -15,2 v 1 3 h 1 v -3 h 8 v -1 z m 18,0 v 1 h 4 v -1 z m -12,4 v 7 h -1 v 1 h 1 1 v -8 z m -1,8 h -1 v 4 h -2 v 1 3 h -2 v 1 2 h 1 v -2 h 1 1 v -4 h 1 1 z m 14,-8 v 3 h -1 v 1 h 1 1 v -4 z m -1,4 h -1 v 2 h 1 z m -44,-3 v 1 5 h -2 v 1 5 h 1 v -5 h 1 1 v -6 h 2 v -1 z m 17,0 v 1 4 h 1 v -4 h 2 v -1 z m 24,0 v 1 2 h 1 v -2 h 2 v -1 z m -15,2 v 1 2 h 1 v -2 h 2 v -1 z m -6,2 v 1 h 2 v -1 z m 0,1 h -1 v 7 h 1 z m 9,-1 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 11,1 v 1 h 10 v -1 z m 7,3 v 6 h -4 v 1 2 h 1 v -2 h 3 1 v -7 z m -14,2 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 4,-1 v 1 2 h 1 v -2 h 8 v -1 z m -39,15 v 1 2 h 1 v -2 h 2 v -1 z m 15,0 v 1 7 h -7 v 1 3 h 1 v -3 h 6 1 v -8 h 2 v -1 z m 22,0 v 1 1 h -9 v 1 9 h 1 v -9 h 8 1 v -2 h 6 v -1 z m -34,2 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 5,-1 v 1 2 h 1 v -2 h 2 v -1 z m 13,0 v 1 1 h -2 v 1 2 h 1 v -2 h 1 1 v -2 h 2 v -1 z m 23,0 v 1 h 8 v -1 z m -33,2 v 1 h 3 v -1 z m 0,1 h -1 v 2 h 1 z m 38,0 v 7 h 1 v -7 z m -15,1 v 1 7 h 1 v -7 h 11 v -1 z m -34,2 v 1 2 h 1 v -2 h 6 v -1 z m 18,0 v 1 h 6 v -1 z m 26,0 v 4 h -8 v 1 h 8 1 v -5 z m -40,3 v 8 h -2 v 1 1 h -2 v 1 2 h 1 v -2 h 1 1 v -2 h 1 1 v -9 z m 9,1 v 1 h 1 v -1 z m 0,1 h -3 v 1 1 h -2 v 1 2 h 1 v -2 h 1 1 v -2 h 2 z m 6,0 v 1 2 h 1 v -2 h 2 v -1 z m -4,1 v 6 h 1 v -6 z m 7,1 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 10,-1 v 1 8 h 1 v -8 h 15 v -1 z m 13,3 v 3 h -10 v 1 h 11 v -1 -3 z m -38,1 v 1 h 2 v -1 z m 0,1 h -1 v 2 h 1 z m 2,1 v 1 h 15 v -1 z m 0,1 h -1 v 2 h 1 z`)
+      const shadowPath = new Path2D(`m 26,0 v 44 h -8 v 10 h 20 v -10 -44 z m 66,0 v 4 h -30 v 12 h 12 v 6 h -2 v -4 h -10 v 10 h 4 v 4 h 4 v 4 h -4 v 8 h -4 v 10 h 10 v -4 h 4 v -4 h 20 v 4 4 h 14 v -4 h 4 v -4 -10 -4 -6 h -4 v -2 -8 -12 h -8 v -4 z m -82,14 v 12 h -4 v 6 10 h 10 v -10 h 4 v -18 z m 34,0 v 14 h 4 v 14 h 10 v -14 -6 h -4 v -8 z m 50,10 h 2 v 2 h -2 z m -14,8 h 4 v 4 h -4 z m -74,34 v 4 6 h 4 v 4 h 10 v -4 -6 h -4 v -4 z m 30,0 v 4 4 h -4 v -4 h -10 v 6 4 h 4 v 2 h -20 v 10 h 8 v 2 2 6 2 h -4 v 2 2 h -4 v 6 4 h 10 v -4 h 6 v 4 h 36 v -4 -6 h -12 v -2 -4 h 2 v 4 h 10 v -4 -6 h -4 v -2 h 4 v -2 -10 h -4 v -2 h 4 v -4 -2 -4 h -10 v 4 h -2 v -4 -4 z m 44,0 v 4 h -18 v 10 14 h 10 v -14 h 2 v 6 4 6 h -4 v 10 2 10 h 36 v -10 -2 -10 h -4 v -6 -4 -6 h 2 v 14 h 10 v -14 -10 h -16 v -4 z m 2,20 h 12 v 4 h -12 z m -58,8 h 2 v 2 h -2 z m 8,8 h 4 v 4 2 h -8 v -2 h 4 z m 48,4 h 16 v 2 h -16 z`)
+      const outlinePath = new Path2D(`m ${22 + sineResult},0 v 44 h -8 v 10 h 20 v -10 -44 z m 66,0 v 4 h -30 v 12 h 12 v 6 h -2 v -4 h -10 v 10 h 4 v 4 h 4 v 4 h -4 v 8 h -4 v 10 h 10 v -4 h 4 v -4 h 20 v 4 4 h 14 v -4 h 4 v -4 -10 -4 -6 h -4 v -2 -8 -12 h -8 v -4 z m -82,14 v 12 h -4 v 6 10 h 10 v -10 h 4 v -18 z m 34,0 v 14 h 4 v 14 h 10 v -14 -6 h -4 v -8 z m 50,10 h 2 v 2 h -2 z m -14,8 h 4 v 4 h -4 z m -74,34 v 4 6 h 4 v 4 h 10 v -4 -6 h -4 v -4 z m 30,0 v 4 4 h -4 v -4 h -10 v 6 4 h 4 v 2 h -20 v 10 h 8 v 2 2 6 2 h -4 v 2 2 h -4 v 6 4 h 10 v -4 h 6 v 4 h 36 v -4 -6 h -12 v -2 -4 h 2 v 4 h 10 v -4 -6 h -4 v -2 h 4 v -2 -10 h -4 v -2 h 4 v -4 -2 -4 h -10 v 4 h -2 v -4 -4 z m 44,0 v 4 h -18 v 10 14 h 10 v -14 h 2 v 6 4 6 h -4 v 10 2 10 h 36 v -10 -2 -10 h -4 v -6 -4 -6 h 2 v 14 h 10 v -14 -10 h -16 v -4 z m 2,20 h 12 v 4 h -12 z m -58,8 h 2 v 2 h -2 z m 8,8 h 4 v 4 2 h -8 v -2 h 4 z m 48,4 h 16 v 2 h -16 z`)
+      const bodyPath = new Path2D(`m ${24 + sineResult},2 v 44 h -8 v 6 h 8 8 v -50 z m 66,0 v 4 h -8 v 8 20 h 6 14 v 12 h -8 v 6 h 10 v -4 h 4 v -14 -6 h -20 v -14 h 10 v 6 h -2 v -4 h -6 v 6 h 4 v 4 h 4 6 v -12 -8 h -8 v -4 z m -30,4 v 8 h 12 v 14 h -2 v -4 h -4 v -4 h -6 v 6 h 4 v 4 h 4 v 8 h -4 v 8 h -4 v 6 h 6 v -4 h 4 v -8 h 2 v 4 h 6 v -6 h -4 v -8 h 4 v -16 -8 z m -52,10 v 12 h -4 v 12 h 6 v -10 h 4 v -14 z m 34,0 v 10 h 4 v 14 h 6 v -16 h -4 v -8 z m 40,22 v 6 h 18 v -6 z m -78,30 v 6 h 4 v 4 h 6 v -6 h -4 v -4 z m 30,0 v 16 h -14 v 8 h 10 v 2 h -6 v 4 h -4 v 6 h 6 v -4 h 6 v -4 h 2 v 12 h 6 v -16 h 12 v -8 h -12 v -16 z m 44,0 v 4 h -18 v 6 14 h 6 v -14 h 36 v 14 h 6 v -14 -6 h -16 v -4 z m -58,4 v 6 h 4 v 4 h 8 v -6 h -6 v -4 z m 26,0 v 4 h -4 v 6 h 6 v -4 h 4 v -6 z m 26,8 v 4 8 4 h 24 v -4 -8 -4 z m -68,4 v 6 h 8 v 16 h -4 v 4 h -4 v 6 h 6 v -4 h 4 v -4 h 2 v 4 h 4 v 4 h 32 v -6 h -30 v -4 h -4 v -16 -6 z m 72,0 h 16 v 8 h -16 z m -34,10 v 6 h 4 v 4 h 6 v -6 h -4 v -4 z m 26,4 v 6 6 6 h 32 v -6 -6 -6 z m 6,6 h 20 v 6 h -20 z`)
+      const highlightPath = new Path2D(`m ${24 + sineResult},2 v 2 42 h -8 v 2 4 h 2 v -4 h 6 2 v -44 h 6 v -2 z m 66,0 v 2 2 h -8 v 2 26 h 2 v -26 h 8 v -2 -2 h 4 v -2 z m -30,4 v 2 6 h 2 v -6 h 16 v -2 z m 36,0 v 2 h 8 v -2 z m -24,8 v 14 h -2 v 2 h 2 2 v -16 z m -2,16 h -2 v 8 h -4 v 2 6 h -4 v 2 4 h 2 v -4 h 2 2 v -8 h 2 2 z m 28,-16 v 6 h -2 v 2 h 2 2 v -8 z m -2,8 h -2 v 4 h 2 z m -88,-6 v 2 10 h -4 v 2 10 h 2 v -10 h 2 2 v -12 h 4 v -2 z m 34,0 v 2 8 h 2 v -8 h 4 v -2 z m 48,0 v 2 4 h 2 v -4 h 4 v -2 z m -30,4 v 2 4 h 2 v -4 h 4 v -2 z m -12,4 v 2 h 4 v -2 z m 0,2 h -2 v 14 h 2 z m 18,-2 v 2 h 4 v -2 z m 0,2 h -2 v 4 h 2 z m 22,2 v 2 h 20 v -2 z m 14,6 v 12 h -8 v 2 4 h 2 v -4 h 6 2 v -14 z m -28,4 v 2 h 4 v -2 z m 0,2 h -2 v 4 h 2 z m 8,-2 v 2 4 h 2 v -4 h 16 v -2 z m -78,30 v 2 4 h 2 v -4 h 4 v -2 z m 30,0 v 2 14 h -14 v 2 6 h 2 v -6 h 12 2 v -16 h 4 v -2 z m 44,0 v 2 2 h -18 v 2 18 h 2 v -18 h 16 2 v -4 h 12 v -2 z m -68,4 v 2 h 4 v -2 z m 0,2 h -2 v 4 h 2 z m 10,-2 v 2 4 h 2 v -4 h 4 v -2 z m 26,0 v 2 2 h -4 v 2 4 h 2 v -4 h 2 2 v -4 h 4 v -2 z m 46,0 v 2 h 16 v -2 z m -66,4 v 2 h 6 v -2 z m 0,2 h -2 v 4 h 2 z m 76,0 v 14 h 2 v -14 z m -30,2 v 2 14 h 2 v -14 h 22 v -2 z m -68,4 v 2 4 h 2 v -4 h 12 v -2 z m 36,0 v 2 h 12 v -2 z m 52,0 v 8 h -16 v 2 h 16 2 v -10 z m -80,6 v 16 h -4 v 2 2 h -4 v 2 4 h 2 v -4 h 2 2 v -4 h 2 2 v -18 z m 18,2 v 2 h 2 v -2 z m 0,2 h -6 v 2 2 h -4 v 2 4 h 2 v -4 h 2 2 v -4 h 4 z m 12,0 v 2 4 h 2 v -4 h 4 v -2 z m -8,2 v 12 h 2 v -12 z m 14,2 v 2 h 4 v -2 z m 0,2 h -2 v 4 h 2 z m 20,-2 v 2 16 h 2 v -16 h 30 v -2 z m 26,6 v 6 h -20 v 2 h 22 v -2 -6 z m -76,2 v 2 h 4 v -2 z m 0,2 h -2 v 4 h 2 z m 4,2 v 2 h 30 v -2 z m 0,2 h -2 v 4 h 2 z`)
       ctx.fillStyle = `rgb(${moduleSet1.r},${moduleSet1.g},${moduleSet1.b})`
       ctx.fill(shadowPath)
       ctx.fill(outlinePath)
