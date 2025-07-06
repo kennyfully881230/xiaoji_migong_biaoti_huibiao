@@ -1,4 +1,4 @@
-# ISC License (许可证)
+# ISC License (ISC许可证)
 
 ## Copyright (版权所有) 2025 Kenny Fully (2025年, 肯尼)
 
