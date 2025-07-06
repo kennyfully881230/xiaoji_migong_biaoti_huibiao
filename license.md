@@ -1,6 +1,6 @@
 # ISC License (许可证)
 
-## Copyright 版权所有 2025 Kenny Fully (肯尼)
+## Copyright (版权所有) 2025 Kenny Fully (2025年, 肯尼)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
