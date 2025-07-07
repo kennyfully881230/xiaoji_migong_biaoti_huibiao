@@ -42,13 +42,6 @@
       touch-action: none;
     }
 
-    .title {
-      background-color: #00000040;
-      left: 0.5rem;
-      position: fixed;
-      top: 0.5rem;
-    }
-
     @media (orientation: landscape) {
       canvas {
         height: 100%;
@@ -62,12 +55,11 @@
     }
   </style>
   <link class="app-icon" rel="icon" href="#" />
-  <title>小鸡迷宫的游戏标题标志</title>
+  <title>小鸡迷宫标题徽标</title>
 </head>
 
 <body>
-  <h1 class="title">小鸡迷宫的游戏标题标志</h1>
-  <canvas width="320px" height="288px"></canvas>
+  <canvas width="320px" height="320px"></canvas>
 </body>
 
 </html>
@@ -104,7 +96,6 @@
     render() {
       if (this.pos.dx && this.pos.dy && this.pos.isTouching) {
         ctx.fillStyle = 'rgba(0,0,0, 0.5)'
-        // ctx.fillRect(this.pos.dx - 2, this.pos.dy - 2, 4, 4)
         ctx.fillRect(this.pos.dx, this.pos.dy, 1, 1)
       } else if (this.pos.dx && this.pos.dy) {
         ctx.fillStyle = 'rgba(0,0,0, 0.5)'
@@ -122,11 +113,16 @@
     }
 
     render() {
+      const pathColorLabel = new Path2D(`m ${this.id % 2 * 160 + 5},141 v 2 h -4 v 2 h 2 v 2 h -2 v 12 h 2 v -2 h 2 v -2 h -2 v -2 h 2 v -2 h -2 v -2 h 2 v 2 h 2 v -2 h 4 v 4 h 2 v -6 h 4 v 2 h -2 v 6 h 2 v -2 h 2 v -8 h -4 v -2 h 4 v -2 h -8 v 2 h 2 v 2 h -2 v 2 h -2 v -2 h 2 v -2 h -4 v -2 z m 12,14 v 4 h 2 v -4 z m -2,0 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m -2,-4 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m 0,-2 v -2 h -2 v 2 z m 0,-2 h 2 v -2 h -2 z m 18,-12 v 2 h 6 v 2 h -6 v -2 h -2 v 2 h -2 v 2 h 2 v 12 h 16 v -4 h -2 v 2 h -12 v -4 h 12 v -8 h -4 v -2 h 2 v -2 z m -20,4 h 2 v 2 h -2 z m 20,2 h 4 v 4 h -4 z m 6,0 h 4 v 4 h -4 z`)
+      const pathNumber1 = new Path2D(`m 48,142 v 2 h -2 v 2 h -2 v 2 h 4 v 6 h -4 v 4 h 12 v -4 h -4 v -12 z`)
+      const pathNumber2 = new Path2D(`m 206,142 v 2 h -2 v 4 2 h 4 v -2 h 2 v 2 h -1 -1 v 1 1 h -2 v 2 h -2 v 4 h 12 v -4 h -4 v -2 h 2 v -1 -1 h 2 v -2 -4 h -2 v -2 z`)
+
+      ctx.fillStyle = `rgb(38,50,56)` // gray
+      ctx.fill(pathColorLabel)
+      this.id === 0 ? ctx.fill(pathNumber1) : ctx.fill(pathNumber2)
+      ctx.fillRect(this.id % 2 * 160 + 62, 142, 16, 16) // current outline
       ctx.fillStyle = `rgb(${this.r},${this.g},${this.b})`
-      ctx.drawImage(spriteSheetImage, 0, 100, 20, 20, this.id % 2 * 160 + 0, 140, 20, 20) // color
-      ctx.drawImage(spriteSheetImage, this.id * 20 + 20, 100, 20, 20, this.id % 2 * 160 + 20, 140, 20, 20) // color id will show +1 of this.id
-      ctx.drawImage(spriteSheetImage, 60, 100, 20, 20, this.id % 2 * 160 + 40, 140, 20, 20) // color outline
-      ctx.fillRect(this.id % 2 * 160 + 44, 144, 12, 12) // current color
+      ctx.fillRect(this.id % 2 * 160 + 64, 144, 12, 12) // current color
     }
   }
 
