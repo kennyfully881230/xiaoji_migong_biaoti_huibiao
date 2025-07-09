@@ -100,7 +100,7 @@
       ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 188, 100, 4)  // slider bars
 
       ctx.save()
-      ctx.translate(Math.floor(this.id / 3) % 2 * 160 + 20 + Math.floor(sliderType / 255 * 49) - 2, this.id % 3 * 40 + 180)
+      ctx.translate(Math.floor(this.id / 3) % 2 * 160 + 20 + Math.floor(sliderType / 255 * 99) - 2, this.id % 3 * 40 + 180)
 
       ctx.fillStyle = 'rgb(38,50,56)'
       ctx.fill(this.STATIC_PATH_SLIDER)
@@ -127,13 +127,12 @@
         // posX - hitBoxX = normalize
         ctx.fillStyle = 'rgba(0,0,0,0.25)'
         ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 180, 100, 20)  // slider bars
-        moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = (digiPointerPOS.dx - hitBoxDX) / 49 * 255
+        moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = (digiPointerPOS.dx - hitBoxDX) / 99 * 255
       }
     }
   }
 
-  // the color test and how to use message
-  // Todo: add Chinese interface
+  // The color test and how to use message
   class HowToUseMsg {
     constructor() {
       // 颜色测试
