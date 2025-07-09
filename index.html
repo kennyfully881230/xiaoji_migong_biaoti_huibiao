@@ -10,10 +10,6 @@
   // 在 <head> 和 <body> 标签内生成适当的数据。
   'use strict'; (() => {document.querySelector('head').insertAdjacentHTML('beforeend', '<meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible"/><meta name="viewport"content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1"/><link class="app-icon" rel="icon" href="#"/><style>*{box-sizing:border-box;color:#EEEEEE40;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;user-select:none}body{align-items:center;background-color:#000010;display:flex;flex-direction:column;height:100dvh;justify-content:center} canvas{background-color:#EEEEEE;image-rendering:pixelated;}@media(orientation:landscape){canvas{height:100%}}@media(orientation:portrait){canvas{width:100%}}</style><title>小鸡迷宫标题徽标</title>'); document.querySelector('body').insertAdjacentHTML('afterbegin', '<canvas width="320px"height="320px"></canvas>')})();
 
-  // todo: Erase the spriteSheetImage and function when no longer needed.
-  // todo: 当不再需要时删除 spriteSheetImage 和函数。
-  let spriteSheetImage = 'data:image/png;base64,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'; (() => {const image = new Image(); image.src = spriteSheetImage; spriteSheetImage = image})();
-
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d')
 
@@ -139,9 +135,41 @@
   // the color test and how to use message
   // Todo: add Chinese interface
   class HowToUseMsg {
+    constructor() {
+      // 颜色测试
+      this.STATIC_PATH_COLOR_TEST_ZH = new Path2D('m 5,1 v 2 h -4 v 2 h 2 v 2 h -2 v 12 h 2 v -2 h 2 v -2 h -2 v -2 h 2 v -2 h -2 v -2 h 2 v 2 h 2 v -2 h 4 v 4 h 2 v -6 h 4 v 2 h -2 v 6 h 2 v -2 h 2 v -8 h -4 v -2 h 4 v -2 h -8 v 2 h 2 v 2 h -2 v 2 h -2 v -2 h 2 v -2 h -4 v -2 z m 12,14 v 4 h 2 v -4 z m -2,0 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m -2,-4 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m 0,-2 v -2 h -2 v 2 z m 0,-2 h 2 v -2 h -2 z m 18,-12 v 2 h 6 v 2 h -6 v -2 h -2 v 2 h -2 v 2 h 2 v 12 h 16 v -4 h -2 v 2 h -12 v -4 h 12 v -8 h -4 v -2 h 2 v -2 z m 16,0 v 2 h 2 v -2 z m 2,2 v 2 h 2 v -2 z m 4,-2 v 12 h 2 v -10 h 4 v 6 h -2 v 6 h 2 v -2 h 2 v -12 z m 6,14 v 4 h 2 v -4 z m -2,0 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m 8,-16 v 18 h 2 v -18 z m 4,0 v 2 h 2 v -2 z m 2,2 v 2 h 2 v -2 z m 10,-2 v 4 h -6 v 2 h 6 v 2 h -6 v 2 h 2 v 6 h -2 v 2 h 6 v -2 h -2 v -6 h 4 v -4 h 4 v -6 h -2 v 4 h -2 v -4 z m 2,10 v 6 h 2 v -6 z m 2,6 v 2 h 2 v -2 z m -10,0 v -2 h -2 v -8 h -4 v 2 h 2 v 10 h 2 v -2 z m -62,-12 h 2 v 2 h -2 z m 20,2 h 4 v 4 h -4 z m 6,0 h 4 v 4 h -4 z m 10,0 v 2 h 2 v -2 z m 2,2 v 2 h 2 v -2 z m 0,6 v 2 h 2 v -2 z m 0,2 h -2 v 2 h 2 z')
+
+      // 作者：肯尼·富利
+      this.STATIC_PATH_BY_KENNY_ZH = new Path2D('m 5,1 v 4 h 2 v -4 z m 2,4 v 4 h 2 v -4 z m 2,0 h 2 v 14 h 2 v -4 h 6 v -2 h -6 v -4 h 6 v -2 h -6 v -2 h 6 v -2 h -8 v -2 h -2 z m -4,0 h -2 v 2 h -2 v 2 h 2 v 10 h 2 z m 22,-4 v 2 h -4 v 2 h 4 v 4 h -6 v 2 h 4 v 2 h -2 v 2 h 2 v 4 h 12 v -8 h 2 v -2 h -6 v -2 h -2 v 2 h -2 v -4 h 4 v -2 h -4 v -2 z m 6,4 v 2 h 2 v -2 z m 2,0 h 2 v -2 h -2 z m -12,10 h -2 v 2 h 2 z m 46,-14 v 6 h -4 v -4 h -2 v 4 h -2 v 2 h 2 v 10 h 2 v -2 h 10 v 2 h 2 v -10 h 2 v -2 h -8 v -2 h 6 v -2 h -6 v -2 z m 14,0 v 12 h 2 v -6 h 2 v 12 h 12 v -4 h -2 v 2 h -8 v -4 h 4 v -2 h -4 v -4 h 10 v -6 z m 10,10 h 4 v -2 h -4 z m -10,2 h -2 v 4 h 2 z m -40,-10 v 4 h 4 v -4 z m 42,0 h 12 v 2 h -12 z m -20,6 h 10 v 2 h -10 z m -38,2 h 8 v 2 h -8 z m 16,2 v 4 h 4 v -4 z m 22,0 h 10 v 2 h -10 z m -38,2 h 8 v 2 h -8 z')
+
+      // 如何使用
+      this.STATIC_PATH_HOW_TO_USE_ZH = new Path2D('m 5,1 v 4 h -4 v 2 h 2 v 4 h 2 v -4 h 2 v 8 h 2 v -10 h -2 v -4 z m 2,14 h -2 v 2 h 2 z m 0,2 v 2 h 2 v -2 z m -2,0 h -4 v 2 h 4 z m 0,-2 v -2 h -2 v 2 z m -2,-2 v -2 h -2 v 2 z m 22,-12 v 4 h 2 v -4 z m 2,4 v 10 h 6 v -10 z m -2,0 h -2 v 2 h -2 v 2 h 2 v 10 h 2 z m 4,-4 v 2 h 6 v 14 h -2 v 2 h 4 v -16 h 2 v -2 z m 16,0 v 4 h 8 v 2 h -6 v 6 h 2 v 2 h 2 v -2 h 2 v 2 h -2 v 2 h 4 v -4 h 4 v -6 h -4 v -2 h 4 v -2 h -4 v -2 h -2 v 2 h -6 v -2 z m 10,16 v 2 h 4 v -2 z m -4,0 h -4 v 2 h 4 z m -6,-12 h -2 v 2 h -2 v 2 h 2 v 10 h 2 z m 18,-4 v 16 h 2 v -4 h 4 v 6 h 2 v -6 h 6 v 4 h -2 v 2 h 4 v -18 z m 0,16 h -2 v 2 h 2 z m -52,-14 v 14 h 8 v -14 z m 54,0 h 4 v 2 h -4 z m 6,0 h 6 v 2 h -6 z m -58,2 h 4 v 10 h -4 z m 16,2 h 2 v 6 h -2 z m 36,0 h 4 v 4 h -4 z m 6,0 h 6 v 4 h -6 z m -22,2 h 4 v 2 h -4 z m 6,0 h 2 v 2 h -2 z')
+
+      // 调整滑块来改变颜色。
+      this.STATIC_PATH_INSTRUCTIONS_ZH = new Path2D('m 3,1 v 2 h 2 v -2 z m 2,2 v 2 h 2 v 10 h 2 v 4 h 6 v -6 h -6 v -2 h 8 v 8 h 2 v -18 h -12 v 2 z m 2,12 h -2 v -8 h -4 v 2 h 2 v 10 h 2 v -2 h 2 z m 18,-14 v 2 h -4 v 2 h 4 v 2 h -4 v 4 h 2 v -2 h 2 v 2 h -2 v 2 h 2 v 2 h 2 v -2 h 2 v 4 h -4 v -2 h -2 v 2 h -2 v 2 h 18 v -2 h -8 v -2 h 8 v -2 h -8 v -2 h 4 v -2 h -4 v -2 h -4 v -2 h 4 v 2 h 2 v -2 h 4 v 2 h 2 v -4 h -4 v -2 h -2 v 2 h -6 v -2 z m 12,6 h -2 v 2 h 2 z m 0,2 v 2 h 2 v -2 z m 4,-8 v 2 h 2 v -2 z m 2,2 v 2 h 2 v -2 z m 4,-2 v 6 h -2 v 2 h 12 v 2 h 2 v -4 h -4 v -2 h -4 v 2 h -2 v -4 h 6 v 2 h 2 v -4 z m 10,10 h -10 v 8 h 2 v -2 h 6 v 2 h 2 z m -12,-2 h -2 v 2 h 2 z m -2,0 v -2 h -2 v 2 z m 20,-8 v 4 h -2 v 2 h 2 v 6 h -2 v 2 h 6 v -2 h -2 v -6 h 2 v -2 h -2 v -4 z m 4,12 h 4 v 2 h 2 v -2 h 6 v -2 h -2 v -6 h -4 v -4 h -2 v 4 h -2 v 2 h 2 v 4 h -4 z m 6,2 v 2 h 2 v -2 z m 2,2 v 2 h 4 v -2 z m -4,-2 h -2 v 2 h 2 z m -2,2 h -4 v 2 h 4 z m 20,-16 v 2 h -6 v 2 h 6 v 4 h -2 v -2 h -2 v 2 h -4 v 2 h 6 v 2 h 2 v 6 h 2 v -6 h 2 v -2 h 6 v -2 h -4 v -2 h -2 v 2 h -2 v -4 h 6 v -2 h -6 v -2 z m 4,12 v 2 h 2 v -2 z m 2,2 v 2 h 2 v -2 z m 2,2 v 2 h 2 v -2 z m -10,-4 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m 26,-16 v 6 h 2 v -2 h 4 v 8 h 2 v -8 h 2 v -2 h -8 v -2 z m 6,12 h -2 v 2 h -2 v 2 h 4 z m 0,4 v 2 h 4 v -2 z m -4,0 h -4 v 2 h 4 z m -4,0 v -4 h -2 v 2 h -2 v -4 h 4 v -2 h 2 v -2 h -2 v -4 h -6 v 2 h 4 v 4 h -4 v 8 z m 6,-4 v -4 h -2 v 4 z m 16,-12 v 2 h -8 v 2 h 6 v 6 h -4 v 2 h 2 v 2 h 2 v -2 h 6 v 2 h 2 v -2 h 2 v -2 h -4 v -6 h 6 v -2 h -8 v -2 z m 8,10 h 2 v -2 h -2 z m 0,-2 v -2 h -2 v 2 z m -4,6 h -6 v 2 h 6 z m 0,2 v 2 h 6 v -2 z m -6,0 h -6 v 2 h 6 z m -4,-6 v -2 h -2 v 2 z m 0,-2 h 2 v -2 h -2 z m 22,-8 v 2 h -4 v 2 h 2 v 2 h -2 v 12 h 2 v -2 h 2 v -2 h -2 v -2 h 2 v -2 h -2 v -2 h 2 v 2 h 2 v -2 h 4 v 4 h 2 v -6 h 4 v 2 h -2 v 6 h 2 v -2 h 2 v -8 h -4 v -2 h 4 v -2 h -8 v 2 h 2 v 2 h -2 v 2 h -2 v -2 h 2 v -2 h -4 v -2 z m 12,14 v 4 h 2 v -4 z m -2,0 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m -2,-4 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m -2,2 h -2 v 2 h 2 z m 0,-2 v -2 h -2 v 2 z m 0,-2 h 2 v -2 h -2 z m 18,-12 v 2 h 6 v 2 h -6 v -2 h -2 v 2 h -2 v 2 h 2 v 12 h 16 v -4 h -2 v 2 h -12 v -4 h 12 v -8 h -4 v -2 h 2 v -2 z m -156,2 h 2 v 2 h -2 z m 4,0 h 4 v 2 h -4 z m 116,2 h 2 v 6 h -2 z m 16,0 h 2 v 2 h -2 z m -136,2 h 2 v 2 h -2 z m 4,0 h 4 v 2 h -4 z m 60,0 h 2 v 4 h -2 z m 92,0 h 4 v 4 h -4 z m 6,0 h 4 v 4 h -4 z m -144,2 h 2 v 2 h -2 z m 156,2 v 2 h 4 v -2 z m 4,2 v 4 h 2 v -4 z m 0,4 h -4 v 2 h 4 z m -4,0 v -4 h -2 v 4 z m -134,-4 h 6 v 2 h -6 z m -38,2 h 2 v 2 h -2 z m 32,0 v 2 h 2 v -2 z m 0,2 h -2 v 2 h 2 z')
+    }
+
     render() {
-      ctx.drawImage(spriteSheetImage, 0, 0, 200, 40, 120, 0, 200, 40)
-      ctx.drawImage(spriteSheetImage, 0, 40, 200, 60, 120, 60, 200, 60)
+      ctx.save()
+      ctx.fillStyle = 'rgb(0,0,0)'
+
+      // 颜色测试
+      ctx.translate(120, 0)
+      ctx.fill(this.STATIC_PATH_COLOR_TEST_ZH)
+
+      // 作者：肯尼·富利
+      ctx.translate(0, 20)
+      ctx.fill(this.STATIC_PATH_BY_KENNY_ZH)
+
+      // 如何使用
+      ctx.translate(0, 40)
+      ctx.fill(this.STATIC_PATH_HOW_TO_USE_ZH)
+
+      // 调整滑块来改变颜色。
+      ctx.translate(0, 20)
+      ctx.fill(this.STATIC_PATH_INSTRUCTIONS_ZH)
+
+      ctx.restore()
     }
   }
 
