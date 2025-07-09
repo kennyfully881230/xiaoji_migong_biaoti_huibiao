@@ -174,6 +174,11 @@
 
   class TitleLogo {
     constructor() {
+      this.gradientMode = {
+        active: false,
+        type: 'linear'
+      }
+
       this.STATIC_PATH_SHADOW = new Path2D(`m 26,0 v 44 h -8 v 10 h 20 v -10 -44 z m 66,0 v 4 h -30 v 12 h 12 v 6 h -2 v -4 h -10 v 10 h 4 v 4 h 4 v 4 h -4 v 8 h -4 v 10 h 10 v -4 h 4 v -4 h 20 v 4 4 h 14 v -4 h 4 v -4 -10 -4 -6 h -4 v -2 -8 -12 h -8 v -4 z m -82,14 v 12 h -4 v 6 10 h 10 v -10 h 4 v -18 z m 34,0 v 14 h 4 v 14 h 10 v -14 -6 h -4 v -8 z m 50,10 h 2 v 2 h -2 z m -14,8 h 4 v 4 h -4 z m -74,34 v 4 6 h 4 v 4 h 10 v -4 -6 h -4 v -4 z m 30,0 v 4 4 h -4 v -4 h -10 v 6 4 h 4 v 2 h -20 v 10 h 8 v 2 2 6 2 h -4 v 2 2 h -4 v 6 4 h 10 v -4 h 6 v 4 h 36 v -4 -6 h -12 v -2 -4 h 2 v 4 h 10 v -4 -6 h -4 v -2 h 4 v -2 -10 h -4 v -2 h 4 v -4 -2 -4 h -10 v 4 h -2 v -4 -4 z m 44,0 v 4 h -18 v 10 14 h 10 v -14 h 2 v 6 4 6 h -4 v 10 2 10 h 36 v -10 -2 -10 h -4 v -6 -4 -6 h 2 v 14 h 10 v -14 -10 h -16 v -4 z m 2,20 h 12 v 4 h -12 z m -58,8 h 2 v 2 h -2 z m 8,8 h 4 v 4 2 h -8 v -2 h 4 z m 48,4 h 16 v 2 h -16 z`)
       this.STATIC_STRING_OUTLINE = `v 44 h -8 v 10 h 20 v -10 -44 z m 66,0 v 4 h -30 v 12 h 12 v 6 h -2 v -4 h -10 v 10 h 4 v 4 h 4 v 4 h -4 v 8 h -4 v 10 h 10 v -4 h 4 v -4 h 20 v 4 4 h 14 v -4 h 4 v -4 -10 -4 -6 h -4 v -2 -8 -12 h -8 v -4 z m -82,14 v 12 h -4 v 6 10 h 10 v -10 h 4 v -18 z m 34,0 v 14 h 4 v 14 h 10 v -14 -6 h -4 v -8 z m 50,10 h 2 v 2 h -2 z m -14,8 h 4 v 4 h -4 z m -74,34 v 4 6 h 4 v 4 h 10 v -4 -6 h -4 v -4 z m 30,0 v 4 4 h -4 v -4 h -10 v 6 4 h 4 v 2 h -20 v 10 h 8 v 2 2 6 2 h -4 v 2 2 h -4 v 6 4 h 10 v -4 h 6 v 4 h 36 v -4 -6 h -12 v -2 -4 h 2 v 4 h 10 v -4 -6 h -4 v -2 h 4 v -2 -10 h -4 v -2 h 4 v -4 -2 -4 h -10 v 4 h -2 v -4 -4 z m 44,0 v 4 h -18 v 10 14 h 10 v -14 h 2 v 6 4 6 h -4 v 10 2 10 h 36 v -10 -2 -10 h -4 v -6 -4 -6 h 2 v 14 h 10 v -14 -10 h -16 v -4 z m 2,20 h 12 v 4 h -12 z m -58,8 h 2 v 2 h -2 z m 8,8 h 4 v 4 2 h -8 v -2 h 4 z m 48,4 h 16 v 2 h -16 z`
       this.STATIC_STRING_BODY = `v 44 h -8 v 6 h 8 8 v -50 z m 66,0 v 4 h -8 v 8 20 h 6 14 v 12 h -8 v 6 h 10 v -4 h 4 v -14 -6 h -20 v -14 h 10 v 6 h -2 v -4 h -6 v 6 h 4 v 4 h 4 6 v -12 -8 h -8 v -4 z m -30,4 v 8 h 12 v 14 h -2 v -4 h -4 v -4 h -6 v 6 h 4 v 4 h 4 v 8 h -4 v 8 h -4 v 6 h 6 v -4 h 4 v -8 h 2 v 4 h 6 v -6 h -4 v -8 h 4 v -16 -8 z m -52,10 v 12 h -4 v 12 h 6 v -10 h 4 v -14 z m 34,0 v 10 h 4 v 14 h 6 v -16 h -4 v -8 z m 40,22 v 6 h 18 v -6 z m -78,30 v 6 h 4 v 4 h 6 v -6 h -4 v -4 z m 30,0 v 16 h -14 v 8 h 10 v 2 h -6 v 4 h -4 v 6 h 6 v -4 h 6 v -4 h 2 v 12 h 6 v -16 h 12 v -8 h -12 v -16 z m 44,0 v 4 h -18 v 6 14 h 6 v -14 h 36 v 14 h 6 v -14 -6 h -16 v -4 z m -58,4 v 6 h 4 v 4 h 8 v -6 h -6 v -4 z m 26,0 v 4 h -4 v 6 h 6 v -4 h 4 v -6 z m 26,8 v 4 8 4 h 24 v -4 -8 -4 z m -68,4 v 6 h 8 v 16 h -4 v 4 h -4 v 6 h 6 v -4 h 4 v -4 h 2 v 4 h 4 v 4 h 32 v -6 h -30 v -4 h -4 v -16 -6 z m 72,0 h 16 v 8 h -16 z m -34,10 v 6 h 4 v 4 h 6 v -6 h -4 v -4 z m 26,4 v 6 6 6 h 32 v -6 -6 -6 z m 6,6 h 20 v 6 h -20 z`
@@ -182,18 +187,35 @@
 
     render(options) {
       const sine = options.sine
+      const sine2 = options.sine2
       const moduleSets = options.colorModules
       const moduleSet0 = moduleSets[0]
       const moduleSet1 = moduleSets[1]
       const sineResult = sine(0, 4, timers.timer60 / timers.timer60max)
 
+      const gradient = ctx.createLinearGradient(0, 0, 120, 120);
+      gradient.addColorStop(0, `rgb(0,${sine2(127, 0, timers.timer60 / timers.timer60max)},0)`)
+      gradient.addColorStop(1, `rgb(0,${sine2(127, 255, timers.timer60 / timers.timer60max)},0)`)
+
       ctx.fillStyle = `rgb(${moduleSet1.r},${moduleSet1.g},${moduleSet1.b})`
       ctx.fill(this.STATIC_PATH_SHADOW)
       ctx.fill(new Path2D(`m ${22 + sineResult},0 ` + this.STATIC_STRING_OUTLINE))
-      ctx.fillStyle = `rgb(${moduleSet0.r},${moduleSet0.g},${moduleSet0.b})`
+      ctx.fillStyle = this.gradientMode.active ? gradient : `rgb(${moduleSet0.r},${moduleSet0.g},${moduleSet0.b})`
       ctx.fill(new Path2D(`m ${24 + sineResult},2 ` + this.STATIC_STRING_BODY))
       ctx.fillStyle = 'rgb(255,255,255)'
       ctx.fill(new Path2D(`m ${24 + sineResult},2 ` + this.STATIC_STRING_HIGHLIGHT))
+    }
+
+    update() {
+      if (
+        digiPointer.pos.dx >= 0 &&
+        digiPointer.pos.dx < 120 &&
+        digiPointer.pos.dy >= 0 &&
+        digiPointer.pos.dy < 120 &&
+        digiPointer.pos.isTouching
+      ) {
+        this.gradientMode.active = !this.gradientMode.active
+      }
     }
   }
 
@@ -217,7 +239,7 @@
 
     render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      this.titleLogo.render({colorModules: this.colorModules, sine: this.utilFunctions.sine})
+      this.titleLogo.render({colorModules: this.colorModules, sine: this.utilFunctions.sine, sine2: this.utilFunctions.sine2})
       this.howToUseMsg.render()
       this.colorModules.forEach(module => module.render({sine: this.utilFunctions.sine}))
       this.colorSliders.forEach(slider => slider.render({colorModules: this.colorModules, sine: this.utilFunctions.sine}))
@@ -228,6 +250,7 @@
 
     update() {
       this.colorSliders.forEach(slider => slider.update({colorModules: this.colorModules}))
+      this.titleLogo.update()
 
       if (timers.timer60 >= timers.timer60max) {
         timers.timer60 = 0
@@ -244,6 +267,10 @@
       t = Math.min(Math.max(t, 0), 1);  // Clamp between 0 and 1
       const index = Math.floor(t * (pixelSteps.length - 1));  // Ensure index is in bounds
       return pixelSteps[index];
+    }
+
+    sine2 = (a, b, t) => {
+      return a + (b - a) * (Math.sin(Math.PI * (t * 2)))
     }
   }
 
