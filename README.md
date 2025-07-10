@@ -1,7 +1,7 @@
 # Xiaoji Migong Title Logo (小鸡迷宫标题徽标)
 ### https://xiaoji-migong-biaoti-huibiao.pages.dev/
 
-![Demo of the project's main feature](images/xiaoji_migong_biaoti-huibiao.gif)
+![Demo of the project's main feature](images/xiaoji_migong_biaoti_huibiao.gif)
 
 This project is an interactive title logo that allows users to change its colors. It is implemented using HTML, CSS, and JavaScript, with the core drawing handled by the HTML Canvas API. The project also features a "how to use" message and attribution for the author, Kenny Fully.
 
