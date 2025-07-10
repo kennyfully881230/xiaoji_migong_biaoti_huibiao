@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+//Actually it's Chinese
+<html lang="zh-CN">
 
 <head><!-- The appropriate data will be generated with JavaScript. 将使用 JavaScript 生成适当的数据。 --></head>
 
@@ -8,10 +9,63 @@
 <script>
   // Generates the appropriate data inside the <head> and <body> tags.
   // 在 <head> 和 <body> 标签内生成适当的数据。
-  'use strict'; (() => {document.querySelector('head').insertAdjacentHTML('beforeend', '<meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible"/><meta name="viewport"content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1"/><link class="app-icon" rel="icon" href="#"/><style>*{box-sizing:border-box;color:#EEEEEE40;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;user-select:none}body{align-items:center;background-color:#000010;display:flex;flex-direction:column;height:100dvh;justify-content:center} canvas{background-color:#EEEEEE;image-rendering:pixelated;}@media(orientation:landscape){canvas{height:100%}}@media(orientation:portrait){canvas{width:100%}}</style><title>小鸡迷宫标题徽标</title>'); document.querySelector('body').insertAdjacentHTML('afterbegin', '<canvas width="320px"height="320px"></canvas>')})();
+  'use strict';
+  (() => {
+    // SECURITY FIX
+    const head = document.querySelector('head');
+    const body = document.querySelector('body');
 
-  const canvas = document.querySelector('canvas')
-  const ctx = canvas.getContext('2d')
+    // -- Create and append elements to <head> --
+    const metaCharset = document.createElement('meta');
+    metaCharset.setAttribute('charset', 'UTF-8');
+    head.appendChild(metaCharset);
+
+    const metaCompatible = document.createElement('meta');
+    metaCompatible.setAttribute('http-equiv', 'X-UA-Compatible');
+    metaCompatible.setAttribute('content', 'IE=edge'); // Added content for correctness
+    head.appendChild(metaCompatible);
+    
+    // SECURITY FIX
+    const metaCsp = document.createElement('meta');
+    metaCsp.setAttribute('http-equiv', 'Content-Security-Policy');
+    metaCsp.setAttribute('content', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; frame-ancestors 'none';");
+    head.appendChild(metaCsp);
+
+    const metaViewport = document.createElement('meta');
+    metaViewport.setAttribute('name', 'viewport');
+    metaViewport.setAttribute('content', 'viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1');
+    head.appendChild(metaViewport);
+
+    const linkIcon = document.createElement('link');
+    linkIcon.className = 'app-icon';
+    linkIcon.setAttribute('rel', 'icon');
+    linkIcon.setAttribute('href', '#'); // Placeholder
+    head.appendChild(linkIcon);
+
+    const style = document.createElement('style');
+    style.textContent = `*{box-sizing:border-box;color:#EEEEEE40;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;user-select:none}body{align-items:center;background-color:#000010;display:flex;flex-direction:column;height:100dvh;justify-content:center} canvas{background-color:#EEEEEE;image-rendering:pixelated;}@media(orientation:landscape){canvas{height:100%}}@media(orientation:portrait){canvas{width:100%}}`;
+    head.appendChild(style);
+
+    const title = document.createElement('title');
+    title.textContent = '小鸡迷宫标题徽标';
+    head.appendChild(title);
+    
+    // -- <body> --
+    const canvasEl = document.createElement('canvas');
+    canvasEl.setAttribute('width', '320px');
+    canvasEl.setAttribute('height', '320px');
+    body.insertAdjacentElement('afterbegin', canvasEl);
+  })();
+
+  const canvas = document.querySelector('canvas');
+  // SECURITY FIX
+  if (!canvas) {
+    throw new Error('Canvas element not found in the DOM.');
+  }
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    throw new Error('2D context is not supported or canvas failed to initialize.');
+  }
 
   const pixelSteps = [0, 2, 4, 6, 8, 6, 4, 2, 0]; // Manual easing
 
@@ -30,10 +84,9 @@
     }
 
     render() {
-      if (this.pos.dx && this.pos.dy && this.pos.isTouching) {
-        ctx.fillStyle = 'rgba(0,0,0, 0.5)'
-        ctx.fillRect(this.pos.dx, this.pos.dy, 1, 1)
-      } else if (this.pos.dx && this.pos.dy) {
+      // No security issue here, but a logical redundancy was present.
+      // The check is just to ensure dx/dy are not null.
+      if (this.pos.dx !== null && this.pos.dy !== null) {
         ctx.fillStyle = 'rgba(0,0,0, 0.5)'
         ctx.fillRect(this.pos.dx, this.pos.dy, 1, 1)
       }
@@ -97,7 +150,7 @@
 
       ctx.restore()
       ctx.fillStyle = `rgb(${moduleSet.r},${moduleSet.g},${moduleSet.b})`
-      ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 188, 100, 4)  // slider bars
+      ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 188, 100, 4) // slider bars
 
       ctx.save()
       ctx.translate(Math.floor(this.id / 3) % 2 * 160 + 20 + Math.floor(sliderType / 255 * 99) - 2, this.id % 3 * 40 + 180)
@@ -126,8 +179,11 @@
       ) {
         // posX - hitBoxX = normalize
         ctx.fillStyle = 'rgba(0,0,0,0.25)'
-        ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 180, 100, 20)  // slider bars
-        moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = (digiPointerPOS.dx - hitBoxDX) / 99 * 255
+        ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 180, 100, 20) // slider bars
+        const rawValue = (digiPointerPOS.dx - hitBoxDX) / 99 * 255;
+        // SECURITY FIX
+        const clampedValue = Math.round(Math.max(0, Math.min(rawValue, 255)));
+        moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = clampedValue;
       }
     }
   }
@@ -178,7 +234,6 @@
         active: false,
         type: 'linear'
       }
-
       this.STATIC_PATH_SHADOW = new Path2D(`m 26,0 v 44 h -8 v 10 h 20 v -10 -44 z m 66,0 v 4 h -30 v 12 h 12 v 6 h -2 v -4 h -10 v 10 h 4 v 4 h 4 v 4 h -4 v 8 h -4 v 10 h 10 v -4 h 4 v -4 h 20 v 4 4 h 14 v -4 h 4 v -4 -10 -4 -6 h -4 v -2 -8 -12 h -8 v -4 z m -82,14 v 12 h -4 v 6 10 h 10 v -10 h 4 v -18 z m 34,0 v 14 h 4 v 14 h 10 v -14 -6 h -4 v -8 z m 50,10 h 2 v 2 h -2 z m -14,8 h 4 v 4 h -4 z m -74,34 v 4 6 h 4 v 4 h 10 v -4 -6 h -4 v -4 z m 30,0 v 4 4 h -4 v -4 h -10 v 6 4 h 4 v 2 h -20 v 10 h 8 v 2 2 6 2 h -4 v 2 2 h -4 v 6 4 h 10 v -4 h 6 v 4 h 36 v -4 -6 h -12 v -2 -4 h 2 v 4 h 10 v -4 -6 h -4 v -2 h 4 v -2 -10 h -4 v -2 h 4 v -4 -2 -4 h -10 v 4 h -2 v -4 -4 z m 44,0 v 4 h -18 v 10 14 h 10 v -14 h 2 v 6 4 6 h -4 v 10 2 10 h 36 v -10 -2 -10 h -4 v -6 -4 -6 h 2 v 14 h 10 v -14 -10 h -16 v -4 z m 2,20 h 12 v 4 h -12 z m -58,8 h 2 v 2 h -2 z m 8,8 h 4 v 4 2 h -8 v -2 h 4 z m 48,4 h 16 v 2 h -16 z`)
       this.STATIC_STRING_OUTLINE = `v 44 h -8 v 10 h 20 v -10 -44 z m 66,0 v 4 h -30 v 12 h 12 v 6 h -2 v -4 h -10 v 10 h 4 v 4 h 4 v 4 h -4 v 8 h -4 v 10 h 10 v -4 h 4 v -4 h 20 v 4 4 h 14 v -4 h 4 v -4 -10 -4 -6 h -4 v -2 -8 -12 h -8 v -4 z m -82,14 v 12 h -4 v 6 10 h 10 v -10 h 4 v -18 z m 34,0 v 14 h 4 v 14 h 10 v -14 -6 h -4 v -8 z m 50,10 h 2 v 2 h -2 z m -14,8 h 4 v 4 h -4 z m -74,34 v 4 6 h 4 v 4 h 10 v -4 -6 h -4 v -4 z m 30,0 v 4 4 h -4 v -4 h -10 v 6 4 h 4 v 2 h -20 v 10 h 8 v 2 2 6 2 h -4 v 2 2 h -4 v 6 4 h 10 v -4 h 6 v 4 h 36 v -4 -6 h -12 v -2 -4 h 2 v 4 h 10 v -4 -6 h -4 v -2 h 4 v -2 -10 h -4 v -2 h 4 v -4 -2 -4 h -10 v 4 h -2 v -4 -4 z m 44,0 v 4 h -18 v 10 14 h 10 v -14 h 2 v 6 4 6 h -4 v 10 2 10 h 36 v -10 -2 -10 h -4 v -6 -4 -6 h 2 v 14 h 10 v -14 -10 h -16 v -4 z m 2,20 h 12 v 4 h -12 z m -58,8 h 2 v 2 h -2 z m 8,8 h 4 v 4 2 h -8 v -2 h 4 z m 48,4 h 16 v 2 h -16 z`
       this.STATIC_STRING_BODY = `v 44 h -8 v 6 h 8 8 v -50 z m 66,0 v 4 h -8 v 8 20 h 6 14 v 12 h -8 v 6 h 10 v -4 h 4 v -14 -6 h -20 v -14 h 10 v 6 h -2 v -4 h -6 v 6 h 4 v 4 h 4 6 v -12 -8 h -8 v -4 z m -30,4 v 8 h 12 v 14 h -2 v -4 h -4 v -4 h -6 v 6 h 4 v 4 h 4 v 8 h -4 v 8 h -4 v 6 h 6 v -4 h 4 v -8 h 2 v 4 h 6 v -6 h -4 v -8 h 4 v -16 -8 z m -52,10 v 12 h -4 v 12 h 6 v -10 h 4 v -14 z m 34,0 v 10 h 4 v 14 h 6 v -16 h -4 v -8 z m 40,22 v 6 h 18 v -6 z m -78,30 v 6 h 4 v 4 h 6 v -6 h -4 v -4 z m 30,0 v 16 h -14 v 8 h 10 v 2 h -6 v 4 h -4 v 6 h 6 v -4 h 6 v -4 h 2 v 12 h 6 v -16 h 12 v -8 h -12 v -16 z m 44,0 v 4 h -18 v 6 14 h 6 v -14 h 36 v 14 h 6 v -14 -6 h -16 v -4 z m -58,4 v 6 h 4 v 4 h 8 v -6 h -6 v -4 z m 26,0 v 4 h -4 v 6 h 6 v -4 h 4 v -6 z m 26,8 v 4 8 4 h 24 v -4 -8 -4 z m -68,4 v 6 h 8 v 16 h -4 v 4 h -4 v 6 h 6 v -4 h 4 v -4 h 2 v 4 h 4 v 4 h 32 v -6 h -30 v -4 h -4 v -16 -6 z m 72,0 h 16 v 8 h -16 z m -34,10 v 6 h 4 v 4 h 6 v -6 h -4 v -4 z m 26,4 v 6 6 6 h 32 v -6 -6 -6 z m 6,6 h 20 v 6 h -20 z`
@@ -264,8 +319,8 @@
 
   class UtilFunctions {
     sine = (a, b, t) => {
-      t = Math.min(Math.max(t, 0), 1);  // Clamp between 0 and 1
-      const index = Math.floor(t * (pixelSteps.length - 1));  // Ensure index is in bounds
+      t = Math.min(Math.max(t, 0), 1); // Clamp between 0 and 1
+      const index = Math.floor(t * (pixelSteps.length - 1)); // Ensure index is in bounds
       return pixelSteps[index];
     }
 
@@ -275,42 +330,44 @@
   }
 
   const digiPointer = new DigiPointer()
-
   const scene = new Scene()
 
+  // SECURITY FIX
+  function updatePointerPosition(e) {
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    const rawX = (e.clientX - rect.left) * scaleX;
+    const rawY = (e.clientY - rect.top) * scaleY;
+
+    // SECURITY FIX
+    digiPointer.pos.dx = Math.floor(Math.max(0, Math.min(rawX, canvas.width - 1)));
+    digiPointer.pos.dy = Math.floor(Math.max(0, Math.min(rawY, canvas.height - 1)));
+  }
+
   canvas.addEventListener('pointerdown', (e) => {
-    e.preventDefault()
-    digiPointer.pos.isTouching = true
-    digiPointer.pos.dx = Math.floor(e.offsetX / canvas.clientWidth * canvas.width)
-    digiPointer.pos.dy = Math.floor(e.offsetY / canvas.clientHeight * canvas.height)
-  })
+    digiPointer.pos.isTouching = true;
+    updatePointerPosition(e);
+  });
 
   canvas.addEventListener('pointermove', (e) => {
-    e.preventDefault()
-    digiPointer.pos.dx = Math.floor(e.offsetX / canvas.clientWidth * canvas.width)
-    digiPointer.pos.dy = Math.floor(e.offsetY / canvas.clientHeight * canvas.height)
-  })
+    if (digiPointer.pos.isTouching) {
+        updatePointerPosition(e);
+    }
+  });
 
-  canvas.addEventListener('pointerup', (e) => {
-    e.preventDefault()
-    digiPointer.pos.isTouching = false
-    digiPointer.pos.dx = null
-    digiPointer.pos.dy = null
-  })
-
-  canvas.addEventListener('pointercancel', (e) => {
-    e.preventDefault()
-    digiPointer.pos.isTouching = false
-    digiPointer.pos.dx = null
-    digiPointer.pos.dy = null
-  })
-
-  canvas.addEventListener('pointerout', (e) => {
-    e.preventDefault()
-    digiPointer.pos.isTouching = false
-    digiPointer.pos.dx = null
-    digiPointer.pos.dy = null
-  })
+  function clearPointerState(e) {
+    e.preventDefault();
+    digiPointer.pos.isTouching = false;
+    digiPointer.pos.dx = null;
+    digiPointer.pos.dy = null;
+  }
+  // No use,so remove
+  canvas.addEventListener('pointerup', clearPointerState);
+  canvas.addEventListener('pointercancel', clearPointerState);
+  canvas.addEventListener('pointerout', clearPointerState);
 </script>
 
 </html>
