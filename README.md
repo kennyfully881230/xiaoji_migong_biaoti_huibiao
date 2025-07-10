@@ -27,9 +27,9 @@ Adjust the sliders to change the colors. Click the title logo to toggle the grad
 
 ## Roadmap (路线图)
 
-This interactive logo is a proof of concept for a future game engine called the "Little Chicken Maze Engine." It demonstrates core technologies like the HTML Canvas API, pixelated rendering, and user interaction, which will be expanded upon to create a full-featured game engine.
+This interactive logo is a proof of concept for a future game engine called the "Xiaoji Engine." It demonstrates core technologies like the HTML Canvas API, pixelated rendering, and user interaction, which will be expanded upon to create a full-featured game engine.
 
-这个交互式徽标是未来名为“小鸡迷宫引擎”的游戏引擎的一个概念验证。它展示了核心技术，如 HTML Canvas API、像素化渲染和用户交互，这些技术将在未来扩展为一个功能齐全的游戏引擎。
+这个交互式徽标是未来名为“小鸡引擎”的游戏引擎的一个概念验证。它展示了核心技术，如 HTML Canvas API、像素化渲染和用户交互，这些技术将在未来扩展为一个功能齐全的游戏引擎。
 
 ## License (许可证)
 
