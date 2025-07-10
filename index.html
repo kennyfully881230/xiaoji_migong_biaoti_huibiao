@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-//Actually it's Chinese
+<!-- Actually it's Chinese -->
 <html lang="zh-CN">
 
 <head><!-- The appropriate data will be generated with JavaScript. 将使用 JavaScript 生成适当的数据。 --></head>
@@ -10,6 +10,9 @@
   // Generates the appropriate data inside the <head> and <body> tags.
   // 在 <head> 和 <body> 标签内生成适当的数据。
   'use strict';
+
+  // TODO: This this function minified in production.
+  // TODO: 此功能应在生产版本中最小化。
   (() => {
     // SECURITY FIX
     const head = document.querySelector('head');
@@ -24,7 +27,7 @@
     metaCompatible.setAttribute('http-equiv', 'X-UA-Compatible');
     metaCompatible.setAttribute('content', 'IE=edge'); // Added content for correctness
     head.appendChild(metaCompatible);
-    
+
     // SECURITY FIX
     const metaCsp = document.createElement('meta');
     metaCsp.setAttribute('http-equiv', 'Content-Security-Policy');
@@ -49,22 +52,24 @@
     const title = document.createElement('title');
     title.textContent = '小鸡迷宫标题徽标';
     head.appendChild(title);
-    
+
     // -- <body> --
     const canvasEl = document.createElement('canvas');
     canvasEl.setAttribute('width', '320px');
     canvasEl.setAttribute('height', '320px');
     body.insertAdjacentElement('afterbegin', canvasEl);
-  })();
+  })()
 
   const canvas = document.querySelector('canvas');
+
   // SECURITY FIX
   if (!canvas) {
-    throw new Error('Canvas element not found in the DOM.');
+    throw new Error('Canvas element not found in the DOM.')
   }
-  const ctx = canvas.getContext('2d');
+
+  const ctx = canvas.getContext('2d')
   if (!ctx) {
-    throw new Error('2D context is not supported or canvas failed to initialize.');
+    throw new Error('2D context is not supported or canvas failed to initialize.')
   }
 
   const pixelSteps = [0, 2, 4, 6, 8, 6, 4, 2, 0]; // Manual easing
@@ -180,10 +185,10 @@
         // posX - hitBoxX = normalize
         ctx.fillStyle = 'rgba(0,0,0,0.25)'
         ctx.fillRect(Math.floor(this.id / 3) % 2 * 160 + 20, this.id % 3 * 40 + 180, 100, 20) // slider bars
-        const rawValue = (digiPointerPOS.dx - hitBoxDX) / 99 * 255;
+        const rawValue = (digiPointerPOS.dx - hitBoxDX) / 99 * 255
         // SECURITY FIX
-        const clampedValue = Math.round(Math.max(0, Math.min(rawValue, 255)));
-        moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = clampedValue;
+        const clampedValue = Math.round(Math.max(0, Math.min(rawValue, 255)))
+        moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = clampedValue
       }
     }
   }
@@ -320,8 +325,8 @@
   class UtilFunctions {
     sine = (a, b, t) => {
       t = Math.min(Math.max(t, 0), 1); // Clamp between 0 and 1
-      const index = Math.floor(t * (pixelSteps.length - 1)); // Ensure index is in bounds
-      return pixelSteps[index];
+      const index = Math.floor(t * (pixelSteps.length - 1)) // Ensure index is in bounds
+      return pixelSteps[index]
     }
 
     sine2 = (a, b, t) => {
@@ -335,39 +340,40 @@
   // SECURITY FIX
   function updatePointerPosition(e) {
     e.preventDefault();
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
+    const rect = canvas.getBoundingClientRect()
+    const scaleX = canvas.width / rect.width
+    const scaleY = canvas.height / rect.height
 
-    const rawX = (e.clientX - rect.left) * scaleX;
-    const rawY = (e.clientY - rect.top) * scaleY;
+    const rawX = (e.clientX - rect.left) * scaleX
+    const rawY = (e.clientY - rect.top) * scaleY
 
     // SECURITY FIX
-    digiPointer.pos.dx = Math.floor(Math.max(0, Math.min(rawX, canvas.width - 1)));
-    digiPointer.pos.dy = Math.floor(Math.max(0, Math.min(rawY, canvas.height - 1)));
+    digiPointer.pos.dx = Math.floor(Math.max(0, Math.min(rawX, canvas.width - 1)))
+    digiPointer.pos.dy = Math.floor(Math.max(0, Math.min(rawY, canvas.height - 1)))
   }
 
   canvas.addEventListener('pointerdown', (e) => {
-    digiPointer.pos.isTouching = true;
-    updatePointerPosition(e);
+    digiPointer.pos.isTouching = true
+    updatePointerPosition(e)
   });
 
   canvas.addEventListener('pointermove', (e) => {
     if (digiPointer.pos.isTouching) {
-        updatePointerPosition(e);
+      updatePointerPosition(e)
     }
   });
 
   function clearPointerState(e) {
-    e.preventDefault();
-    digiPointer.pos.isTouching = false;
-    digiPointer.pos.dx = null;
-    digiPointer.pos.dy = null;
+    e.preventDefault()
+    digiPointer.pos.isTouching = false
+    digiPointer.pos.dx = null
+    digiPointer.pos.dy = null
   }
+
   // No use,so remove
-  canvas.addEventListener('pointerup', clearPointerState);
-  canvas.addEventListener('pointercancel', clearPointerState);
-  canvas.addEventListener('pointerout', clearPointerState);
+  canvas.addEventListener('pointerup', clearPointerState)
+  canvas.addEventListener('pointercancel', clearPointerState)
+  canvas.addEventListener('pointerout', clearPointerState)
 </script>
 
 </html>
