@@ -46,11 +46,11 @@ class ColorSlider {
 
     // slider bars
     ctx.fillStyle = 'rgba(0,0,0,0.1)'
-    ctx.fillRect(20, 0, 100, 20)
+    ctx.fillRect(20, 8, 100, 4)
 
     // slider amount
     ctx.fillStyle = `rgb(${this.id % 3 === 0 ? sliderType : 32},${this.id % 3 === 1 ? sliderType : 32},${this.id % 3 === 2 ? sliderType : 32})`
-    ctx.fillRect(20, 0, (sliderType / 255) * 100, 20)
+    ctx.fillRect(20, 8, (sliderType / 255) * 100, 4)
 
     // slider handle
     ctx.translate((sliderType / 255) * 99 + 20, 0)
