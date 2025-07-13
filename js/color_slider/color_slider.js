@@ -12,6 +12,18 @@ class ColorSlider {
     this.STATIC_PATH_G = new Path2D('m 6,2 v 2 h -2 v 12 h 2 v 2 h 8 v -2 h 2 v -4 -4 h -6 v 4 h 2 v 2 h -4 v -8 h 8 v -4 z')
     this.STATIC_PATH_B = new Path2D('m 4,2 v 4 12 h 4 6 v -2 h 2 v -2 -2 h -2 v -2 h 2 v -6 h -2 v -2 z m 4,4 h 4 v 2 h -4 z m 0,6 h 4 v 2 h -4 z')
     this.STATIC_PATH_SLIDER = new Path2D('m 2,0 v 2 h -2 v 16 h 2 v 2 h 2 v -2 h 2 v -16 h -2 v -2 z')
+    
+    // Cache transform coordinates
+    this.transformX = (Math.floor(this.id / 3) % 2) * 160
+    this.transformY = (this.id % 3) * 40 + 180
+    
+    // Cache hit box coordinates for performance
+    this.hitBox = {
+      x: this.transformX + 20,
+      y: this.transformY,
+      width: 100,
+      height: 20
+    }
   }
 
   render(options) {
@@ -19,7 +31,7 @@ class ColorSlider {
     const sliderType = moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b']
 
     ctx.save()
-    ctx.translate((Math.floor(this.id / 3) % 2) * 160, (this.id % 3) * 40 + 180)
+    ctx.translate(this.transformX, this.transformY)
 
     if (this.id % 3 === 0) {
       ctx.fillStyle = 'rgb(191,54,12)'
@@ -32,33 +44,33 @@ class ColorSlider {
       ctx.fill(this.STATIC_PATH_B)
     }
 
-    ctx.restore()
-    ctx.fillStyle = `rgb(${moduleSet.r},${moduleSet.g},${moduleSet.b})`
-    ctx.fillRect((Math.floor(this.id / 3) % 2) * 160 + 20, (this.id % 3) * 40 + 188, 100, 4) // slider bars
+    // slider bars
+    ctx.fillStyle = 'rgba(0,0,0,0.1)'
+    ctx.fillRect(20, 0, 100, 20)
 
-    ctx.save()
-    ctx.translate((Math.floor(this.id / 3) % 2) * 160 + 20 + Math.floor((sliderType / 255) * 99) - 2, (this.id % 3) * 40 + 180)
+    // slider amount
+    ctx.fillStyle = `rgb(${this.id % 3 === 0 ? sliderType : 32},${this.id % 3 === 1 ? sliderType : 32},${this.id % 3 === 2 ? sliderType : 32})`
+    ctx.fillRect(20, 0, (sliderType / 255) * 100, 20)
 
-    ctx.fillStyle = 'rgb(38,50,56)'
-    ctx.fill(this.STATIC_PATH_SLIDER)
+    // slider handle
+    ctx.translate((sliderType / 255) * 99 + 20, 0)
     ctx.fillStyle = 'rgb(255,255,255)'
-    ctx.fillRect(2, 2, 2, 16)
+    ctx.fill(this.STATIC_PATH_SLIDER)
+
     ctx.restore()
   }
 
   update(options) {
     const moduleSet = options.colorModules[this.colorModuleSet]
-    const digiPointerPOS = digiPointer.pos
-    const hitBoxDX = (Math.floor(this.id / 3) % 2) * 160 + 20
-    const hitBoxDY = (this.id % 3) * 40 + 180
-    const hitBoxDW = 100
-    const hitBoxDH = 20
-
-    if (digiPointer.pos.dx >= hitBoxDX && digiPointer.pos.dx < hitBoxDX + hitBoxDW && digiPointer.pos.dy >= hitBoxDY && digiPointer.pos.dy < hitBoxDY + hitBoxDH && digiPointer.pos.isTouching) {
+    
+    if (digiPointer.pos.dx >= this.hitBox.x && digiPointer.pos.dx < this.hitBox.x + this.hitBox.width && 
+        digiPointer.pos.dy >= this.hitBox.y && digiPointer.pos.dy < this.hitBox.y + this.hitBox.height && 
+        digiPointer.pos.isTouching) {
+      
       // posX - hitBoxX = normalize
       ctx.fillStyle = 'rgba(0,0,0,0.25)'
-      ctx.fillRect((Math.floor(this.id / 3) % 2) * 160 + 20, (this.id % 3) * 40 + 180, 100, 20) // slider bars
-      const rawValue = ((digiPointerPOS.dx - hitBoxDX) / 99) * 255
+      ctx.fillRect(this.hitBox.x, this.hitBox.y, this.hitBox.width, this.hitBox.height) // slider bars
+      const rawValue = ((digiPointer.pos.dx - this.hitBox.x) / 99) * 255
       // SECURITY FIX
       const clampedValue = Math.round(Math.max(0, Math.min(rawValue, 255)))
       moduleSet[this.id % 3 === 0 ? 'r' : this.id % 3 === 1 ? 'g' : 'b'] = clampedValue
