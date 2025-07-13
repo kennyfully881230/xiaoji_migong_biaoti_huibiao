@@ -9,7 +9,7 @@ This project is an interactive title logo that allows users to change its colors
 
 ## Features (功能)
 * **Interactive Color Adjustment**: Users can adjust RGB color sliders to change the colors of the title logo.
-    * **交互式颜色调整**: 用户可以通过调整 RGB 滑块来改变标题徽标的颜色。
+    * **交互式颜色调节**: 用户可以通过调节 RGB 颜色滑块来改变标题徽标的颜色。
 * **Dynamic Gradient Mode**: Clicking the title logo toggles a dynamic gradient effect.
     * **动态渐变模式**: 点击标题徽标可以切换动态渐变效果。
 * **Responsive Design**: The canvas adjusts its size based on screen orientation (landscape or portrait).
@@ -23,7 +23,7 @@ This project is an interactive title logo that allows users to change its colors
 
 Adjust the sliders to change the colors. Click the title logo to toggle the gradient mode.
 
-调整滑块来改变颜色。点击标题徽标以切换渐变模式。
+调节滑块来改变颜色。点击标题徽标以切换渐变模式。
 
 ## Roadmap (路线图)
 
@@ -35,13 +35,13 @@ This interactive logo is a proof of concept for a future game engine called the 
 
 This project is licensed under the ISC License.
 
-本项目根据 ISC 许可证授权。
+本项目采用 ISC 许可证进行授权。
 
 **Copyright (版权所有) 2025 Kenny Fully (2025年, 肯尼)**
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
-特此授予任何人免费或有偿使用、复制、修改和/或分发本软件的许可，但前提是所有副本中都必须包含上述版权声明和本许可声明。
+特此授予任何人免费或收费使用、复制、修改和/或分发本软件的权限，前提是上述版权声明和本许可声明必须包含在所有副本中。
 
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
