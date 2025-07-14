@@ -16,3 +16,5 @@ const timers = {
   timer60: 0,
   timer60max: 59
 }
+
+ctx.imageSmoothingEnabled = false
