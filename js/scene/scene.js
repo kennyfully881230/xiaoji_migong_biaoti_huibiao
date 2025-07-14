@@ -6,6 +6,8 @@ class Scene {
     this.titleLogo = new TitleLogo()
     this.howToUseMsg = new HowToUseMsg()
 
+    // this.recordButton = new RecordButton()
+
     this.colorModules = [new ColorModule({ id: 0, r: 255, g: 171, b: 145 }), new ColorModule({ id: 1, r: 191, g: 54, b: 12 })]
 
     this.colorSliders = []
@@ -21,6 +23,7 @@ class Scene {
     this.howToUseMsg.render()
     this.colorModules.forEach(module => module.render({ sine: this.utilFunctions.sine }))
     this.colorSliders.forEach(slider => slider.render({ colorModules: this.colorModules, sine: this.utilFunctions.sine }))
+    // this.recordButton.render()
     digiPointer.render()
     this.update()
   }
@@ -28,6 +31,7 @@ class Scene {
   update() {
     this.colorSliders.forEach(slider => slider.update({ colorModules: this.colorModules }))
     this.titleLogo.update()
+    // this.recordButton.update()
 
     if (timers.timer60 >= timers.timer60max) {
       timers.timer60 = 0
