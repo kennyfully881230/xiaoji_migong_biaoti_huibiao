@@ -6,11 +6,6 @@
   const head = document.querySelector('head')
   const body = document.querySelector('body')
 
-  // -- Create and append elements to <head> --
-  const metaCharset = document.createElement('meta')
-  metaCharset.setAttribute('charset', 'UTF-8')
-  head.appendChild(metaCharset)
-
   const metaCompatible = document.createElement('meta')
   metaCompatible.setAttribute('http-equiv', 'X-UA-Compatible')
   metaCompatible.setAttribute('content', 'IE=edge') // Added content for correctness
