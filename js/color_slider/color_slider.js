@@ -53,9 +53,15 @@ class ColorSlider {
     ctx.fillRect(20, 8, (sliderType / 255) * 100, 4)
 
     // slider handle
-    ctx.translate(Math.floor((sliderType / 255) * 99) + 20, 0)  // avoid half-pixel rendering
-    ctx.fillStyle = 'rgb(255,255,255)'
+    ctx.translate(Math.floor((sliderType / 255) * 99) + 20 - 2, 0)  // avoid half-pixel rendering
+    
+    // Draw black border first
+    ctx.fillStyle = 'rgb(38,50,56)'
     ctx.fill(this.STATIC_PATH_SLIDER)
+    
+    // Draw white center
+    ctx.fillStyle = 'rgb(255,255,255)'
+    ctx.fillRect(2, 2, 2, 16)
 
     ctx.restore()
   }
